@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Thiarene-Plus</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+  .filter-bar {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.filter-bar button {
+  background: linear-gradient(135deg, #2a5caa, #1abc9c);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  margin: 5px;
+  border-radius: 30px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.4s ease;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.filter-bar button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(0,0,0,0.15);
+}
+
+.filter-bar button:active {
+  transform: scale(0.97);
+}
+
+.filter-bar button.active {
+  background: linear-gradient(135deg, #1abc9c, #16a085);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .logo {
+      height: 60px;
+    }
+
+    .banniere {
+      width: 100%;
+      max-height: 280px;
+      object-fit: cover;
+      border-top: 3px solid #1abc9c;
+    }
+
+    main {
+      max-width: 850px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+
+    .news-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      padding: 20px;
+      margin-bottom: 30px;
+      transition: transform 0.2s ease;
+    }
+
+    .news-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .news-image {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin: 15px 0;
+    }
+
+    .news-meta {
+      display: flex;
+      justify-content: space-between;
+      color: #7f8c8d;
+      font-size: 0.9em;
+      margin-bottom: 10px;
+    }
+
+    .news-content {
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+    }
+
+    .news-content.collapsed {
+      max-height: 120px;
+    }
+
+    .read-more-btn {
+      background: none;
+      border: none;
+      color: #2980b9;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 8px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #2c3e50;
+      color: white;
+      margin-top: 30px;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    h2 {
+      color: #2c3e50;
+    }
+
+    a {
+      color: #2980b9;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-top">
+<img src="img/logo.png" alt="Logo Thiarene" class="logo">
+     
+      <div>
+        <h1>📢 Thiarene-Plus</h1>
+        <p>Les nouvelles du village, pour tous et partout.</p>
+      </div>
+    </div>
+    <img src="img/banniere.jpg" alt="Image du village" class="banniere">
+  </header>
+<div class="filter-bar">
+  <button onclick="filterNews('all')">📋 Tout</button>
+  <button onclick="filterNews('📜 Histoire')">📜 Histoire</button>
+  <button onclick="filterNews('👥 Population')">👥 Population</button>
+  <button onclick="filterNews('🏛️ Chefferie')">🏛️ Chefferie</button>
+  <button onclick="filterNews('🌍 Géographie')">🌍 Géographie</button>
+</div>
+  <div id="news-alert" style="
+  display: none;
+  background: #27ae60;
+  color: white;
+  text-align: center;
+  padding: 12px;
+  font-weight: bold;
+  font-size: 1em;
+">
+  🆕 Nouvelle(s) actualité(s) ajoutée(s) depuis votre dernière visite !
+</div>
+  <main>
+    <div class="news-card" data-category="🌍 Géographie" data-news-date="2025-07-29">
+  <div class="news-meta">
+    <span class="news-date">🌍 Géographie</span>
+    <span class="news-views">👁️ 620 vues</span>
+  </div>
+
+  <h2>Où se situe le village de Thiaréne ?</h2>
+
+  <img src="img/carte_thiarene.jpg" alt="Carte de Thiaréne" class="news-image">
+
+  <div class="news-content collapsed" id="content-7">
+    <p>Le village de <strong>Thiaréne</strong> est situé au nord-est du Sénégal, dans la <strong>région de Matam</strong>, à proximité immédiate des villages <strong>Sedo Sébé</strong> et <strong>Sedo Abass</strong>.</p>
+
+    <p>📍 <strong>Coordonnées GPS</strong> :
+      <ul>
+        <li>Latitude : 15.7616368</li>
+        <li>Longitude : -13.4732566</li>
+      </ul>
+    </p>
+
+    <p>Il se trouve dans le <strong>Fouta Toro</strong>, une zone historique et culturelle majeure, bordée par le fleuve Sénégal, non loin de la frontière avec la Mauritanie. C’est un territoire marqué par l’héritage islamique, les traditions Peules (Pulaar) et Wolof, et un mode de vie rural profondément enraciné.</p>
+
+    <p>Le village est entouré de savanes sèches, de terres agricoles, et bénéficie d’une riche histoire religieuse et migratoire, comme raconté par ses anciens et transmis de génération en génération.</p>
+
+    <p><a href="https://www.google.com/maps?q=15.7616368,-13.4732566" target="_blank">
+    📌 Voir Thiaréne sur Google Maps</a></p>
+  </div>
+
+  <button class="read-more-btn" onclick="toggleReadMore(7)">Lire plus</button>
+</div>
+    <div class="news-card" data-category="👥 Population" data-news-date="2025-07-29">
+  <div class="news-meta">
+    <span class="news-date">👥 Population</span>
+    <span class="news-views">👁️ 462 vues</span>
+  </div>
+
+  <h2>Recensement de la population thiarénoise</h2>
+
+  <img src="img/population.jpg" alt="Recensement" class="news-image">
+
+  <div class="news-content collapsed" id="content-1">
+    <p>En 2023, un recensement effectué par les jeunes de Thiaréne a permis d’estimer la population totale à <strong>4627 habitants</strong>, dont :</p>
+    <ul>
+      <li>👨 2013 hommes</li>
+      <li>👩 2614 femmes</li>
+    </ul>
+    <p>Il y a donc plus de femmes que d’hommes. Ce chiffre reste une estimation (Source : AHSD).</p>
+  </div>
+
+  <button class="read-more-btn" onclick="toggleReadMore(1)">Lire plus</button>
+</div>
+   <div class="news-card"data-category="📜 Histoire" data-news-date="2025-07-29" >
+  <div class="news-meta">
+    <span class="news-date">📜 Histoire</span>
+    <span class="news-views">👁️ 587 vues</span>
+  </div>
+
+  <h2>Les premiers habitants de Thiaréne</h2>
+
+  <img src="img/premiers.jpg" alt="Premiers habitants" class="news-image">
+
+  <div class="news-content collapsed" id="content-2">
+    <p>Les premiers habitants du village furent les familles <strong>Sarr</strong> et <strong>Diop</strong>, notamment :</p>
+    <ul>
+      <li><strong>Mame Massar Sarr</strong></li>
+      <li><strong>Mame Ndiaga Diagne Diop</strong></li>
+    </ul>
+    <p>Ndiaga Diop partit du Djolof pour étudier le Coran à Sedo. Il allait apprendre sous un baobab à Thiaréne.</p>
+    <p>Massar Sarr, après avoir fui Djolof à cause des conflits, s’installa aussi à Sedo avec sa sœur Amina. Les Sédo-Sédo leur offraient du mil. Plus tard, ils décidèrent de rester dans la région malgré les moqueries et les conflits.</p>
+  </div>
+
+  <button class="read-more-btn" onclick="toggleReadMore(2)">Lire plus</button>
+</div>
+   <div class="news-card" data-category="🏛️ Chefferie" data-news-date="2025-07-29" >
+  <div class="news-meta">
+    <span class="news-date">📚 Généalogie</span>
+    <span class="news-views">👁️ 430 vues</span>
+  </div>
+
+  <h2>Le parcours de Mame Maelle Sarr</h2>
+
+  <img src="img/maelle.jpg" alt="Mame Maelle Sarr" class="news-image">
+
+  <div class="news-content collapsed" id="content-3">
+    <p>Mame Maelle Sarr, père de Massar Sarr, vivait au Djolof. En conflit avec Bourba Djolof (Lat Samba Ndiaye), il partit s’installer à Golléré avec ses enfants.</p>
+    <p>Après sa mort, Massar et sa sœur Amina se dirigèrent vers Sedo, un village peuplé de Wolofs. Accueillis avec générosité, ils décidèrent de rester.</p>
+    <p>Cette migration marque un tournant dans la fondation de Thiaréne.</p>
+  </div>
+
+  <button class="read-more-btn" onclick="toggleReadMore(3)">Lire plus</button>
+</div>
+   <div class="news-card"data-category="🏛️ Chefferie" data-news-date="2025-07-29">
+  <div class="news-meta">
+    <span class="news-date">🧑‍⚖️ Chefferie</span>
+    <span class="news-views">👁️ 512 vues</span>
+  </div>
+
+  <h2>Les chefs du village à travers le temps</h2>
+
+  <img src="img/chefs.jpg" alt="Chefs traditionnels" class="news-image">
+
+  <div class="news-content collapsed" id="content-4">
+    <p>Voici la liste des chefs traditionnels de Thiaréne :</p>
+    <ul>
+      <li>Massar Sarr</li>
+      <li>Ndéry Sarr</li>
+      <li>Amadou Seyni Sarr</li>
+      <li>Amath Bassine Sarr</li>
+      <li>Babacar Sarr</li>
+      <li>Oumar Sarr</li>
+      <li>Salif Fama Sarr</li>
+      <li>Birane Fama Sarr</li>
+      <li>Mamouth Sokhna Sarr</li>
+      <li>Baba Rokhy Sarr</li>
+      <li>Yatma Sarr</li>
+      <li>Oumar Anta Sarr</li>
+      <li>Samba Adame Sarr</li>
+      <li>Abdou Diengoye Sarr</li>
+      <li>Doudou Mayrame Sarr</li>
+      <li>Mor Sarr</li>
+      <li>Amadou Gueye</li>
+    </ul>
+    <p>L’actuel chef du village est <strong>Amath Doudou Sarr</strong>.</p>
+  </div>
+
+  <button class="read-more-btn" onclick="toggleReadMore(4)">Lire plus</button>
+</div> 
+  </main>
+
+  <footer>
+    &copy; 2025 Thiarene-Plus
+  </footer>
+
+  <script>
+    function toggleReadMore(index) {
+      const content = document.getElementById(`content-${index}`);
+      const button = content.nextElementSibling;
+
+      content.classList.toggle('collapsed');
+      button.textContent = content.classList.contains('collapsed') ? 'Lire plus' : 'Lire moins';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const contents = document.querySelectorAll('.news-content');
+      contents.forEach(content => {
+        if (content.textContent.length > 200) {
+          content.classList.add('collapsed');
+        }
+      });
+    });
+  function filterNews(category) {
+  const cards = document.querySelectorAll('.news-card');
+  cards.forEach(card => {
+    if (category === 'all' || card.dataset.category === category) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+  function toggleReadMore(index) {
+    const content = document.getElementById(`content-${index}`);
+    const button = content.nextElementSibling;
+
+    content.classList.toggle('collapsed');
+    button.textContent = content.classList.contains('collapsed') ? 'Lire plus' : 'Lire moins';
+  }
+
+  // Afficher une alerte s'il y a du nouveau
+  document.addEventListener('DOMContentLoaded', () => {
+    const lastVisit = parseInt(localStorage.getItem('lastVisit') || 0);
+    const now = Date.now();
+    let foundNew = false;
+
+    // Vérifie les dates des actualités
+    document.querySelectorAll('.news-card').forEach(card => {
+      const dateStr = card.dataset.newsDate;
+      if (!dateStr) return;
+
+      const articleDate = new Date(dateStr).getTime();
+
+      // Si l'actualité est plus récente que la dernière visite, on affiche l'alerte
+      if (articleDate > lastVisit) {
+        foundNew = true;
+
+        // Affiche aussi une puce "🆕" dans le titre
+        const h2 = card.querySelector('h2');
+        if (h2 && !h2.textContent.includes('🆕')) {
+          h2.innerHTML = '🆕 ' + h2.innerHTML;
+        }
+      }
+    });
+
+    if (foundNew) {
+      document.getElementById('news-alert').style.display = 'block';
+    }
+
+    // Enregistre cette visite
+    localStorage.setItem('lastVisit', now);
+  });
+  </script>
+</body>
+</html>
