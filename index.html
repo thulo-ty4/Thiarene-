@@ -167,6 +167,10 @@
     </div>
     <img src="banniere.jpg" alt="Image du village" class="banniere">
   </header>
+  <div style="text-align:center; padding:10px; background:#2A5CAA;">
+  <a href="index.html" style="color:white; margin-right:20px;">🏠 Accueil</a>
+  <a href="annonces.html" style="color:white;">📣 Publier une annonce</a>
+  </div>
 <div class="filter-bar">
   <button onclick="filterNews('all')">📋 Tout</button>
   <button onclick="filterNews('📜 Histoire')">📜 Histoire</button>
@@ -174,6 +178,21 @@
   <button onclick="filterNews('🏛️ Chefferie')">🏛️ Chefferie</button>
   <button onclick="filterNews('🌍 Géographie')">🌍 Géographie</button>
 </div>
+  <div style="text-align:center; margin: 30px 0;">
+  <a href="annonces.html" style="
+    display: inline-block;
+    background: #2A5CAA;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 18px;
+    text-decoration: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: 0.3s ease;
+  " onmouseover="this.style.background='#1b3f7a'" onmouseout="this.style.background='#2A5CAA'">
+    📣 Publier une annonce maintenant
+  </a>
+  </div>
   <div id="news-alert" style="
   display: none;
   background: #27ae60;
