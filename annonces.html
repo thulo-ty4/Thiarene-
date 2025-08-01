@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Publier une annonce - Thiarene+</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
+    }
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+      max-width: 600px;
+      margin: auto;
+    }
+    input, textarea, button {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      background: #2A5CAA;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #1b3f7a;
+    }
+    .annonce {
+      background: #fff;
+      padding: 15px;
+      margin: 15px auto;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      max-width: 600px;
+    }
+    .annonce h3 {
+      margin: 0 0 10px;
+      color: #2c3e50;
+    }
+    .annonce small {
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+
+  <h1 style="text-align:center">📢 Publier une annonce</h1>
+
+  <form id="formAnnonce">
+    <input type="text" id="nom" placeholder="Votre nom" required>
+    <input type="text" id="type" placeholder="Type d’annonce (vente, fête, info...)" required>
+    <textarea id="message" rows="5" placeholder="Écrivez votre annonce ici..." required></textarea>
+    <button type="submit">Envoyer</button>
+  </form>
+
+  <h2 style="text-align:center">📰 Annonces récentes</h2>
+  <div id="liste-annonces"></div>
+
+  <!-- Firebase SDKs -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+    import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAfaaMyk4_CjF9SwJ4D0o-r0A5jENFJxOc",
+      authDomain: "blossomverse-lgajk.firebaseapp.com",
+      databaseURL: "https://blossomverse-lgajk-default-rtdb.firebaseio.com",
+      projectId: "blossomverse-lgajk",
+      storageBucket: "blossomverse-lgajk.firebasestorage.app",
+      messagingSenderId: "588813220309",
+      appId: "1:588813220309:web:ea1934d655e1d2397ce55c"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    const form = document.getElementById('formAnnonce');
+    const liste = document.getElementById('liste-annonces');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const annonce = {
+        nom: document.getElementById('nom').value,
+        type: document.getElementById('type').value,
+        message: document.getElementById('message').value,
+        date: new Date().toISOString()
+      };
+
+      push(ref(db, 'annonces'), annonce);
+      form.reset();
+      alert("✅ Annonce publiée !");
+    });
+
+    // Affichage dynamique
+    onChildAdded(ref(db, 'annonces'), (data) => {
+      const annonce = data.val();
+      const div = document.createElement('div');
+      div.className = 'annonce';
+      div.innerHTML = `
+        <h3>${annonce.type} – ${annonce.nom}</h3>
+        <p>${annonce.message}</p>
+        <small>🕒 ${new Date(annonce.date).toLocaleString()}</small>
+      `;
+      liste.prepend(div);
+    });
+  </script>
+</body>
+</html>
