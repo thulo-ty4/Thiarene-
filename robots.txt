@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://thiaren.netlify.app/sitemap.xml
