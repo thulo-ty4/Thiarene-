@@ -6,72 +6,153 @@
   <title>Publier une annonce - Thiarene+</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Arial, sans-serif;
       background: #f4f4f4;
       padding: 20px;
+      color: #333;
     }
     form {
       background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      margin-bottom: 30px;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      margin: 0 auto 30px;
       max-width: 600px;
-      margin: auto;
     }
-    input, textarea, button {
+    input, textarea, button, select {
       width: 100%;
       padding: 12px;
       margin-bottom: 15px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
+      border-radius: 8px;
+      border: 1px solid #ddd;
       font-size: 16px;
+      box-sizing: border-box;
     }
     button {
       background: #2A5CAA;
       color: white;
       font-weight: bold;
       cursor: pointer;
-      transition: 0.3s;
+      transition: all 0.3s ease;
+      border: none;
     }
     button:hover {
       background: #1b3f7a;
+      transform: translateY(-2px);
     }
     .annonce {
       background: #fff;
-      padding: 15px;
-      margin: 15px auto;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin: 20px auto;
+      border-radius: 12px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
       max-width: 600px;
     }
     .annonce h3 {
       margin: 0 0 10px;
       color: #2c3e50;
+      font-size: 1.3em;
     }
     .annonce small {
-      color: gray;
+      color: #777;
+      font-size: 0.9em;
+    }
+    .annonce img, .annonce video {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-top: 15px;
+      max-height: 300px;
+      object-fit: cover;
+    }
+    .file-input-container {
+      margin-bottom: 15px;
+    }
+    .file-input-label {
+      display: block;
+      padding: 12px;
+      background: #f8f8f8;
+      border: 1px dashed #ccc;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .file-input-label:hover {
+      background: #eef;
+      border-color: #2A5CAA;
+    }
+    .preview-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    .preview-item {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .preview-item img, .preview-item video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .remove-btn {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    h1, h2 {
+      text-align: center;
+      color: #2A5CAA;
+    }
+    h1 {
+      margin-bottom: 30px;
+    }
+    h2 {
+      margin: 40px 0 20px;
     }
   </style>
 </head>
 <body>
 
-  <h1 style="text-align:center">📢 Publier une annonce</h1>
+  <h1>📢 Publier une annonce</h1>
 
   <form id="formAnnonce">
     <input type="text" id="nom" placeholder="Votre nom" required>
-    <input type="text" id="type" placeholder="Type d’annonce (vente, fête, info...)" required>
+    <input type="text" id="type" placeholder="Type d'annonce (vente, fête, info...)" required>
     <textarea id="message" rows="5" placeholder="Écrivez votre annonce ici..." required></textarea>
-    <button type="submit">Envoyer</button>
+    
+    <div class="file-input-container">
+      <label for="mediaFiles" class="file-input-label">
+        📷 Cliquez pour ajouter des photos/vidéos (max 5)
+      </label>
+      <input type="file" id="mediaFiles" multiple accept="image/*,video/*" style="display: none;">
+    </div>
+    
+    <div class="preview-container" id="previewContainer"></div>
+    
+    <button type="submit" id="submitBtn">Publier l'annonce</button>
   </form>
 
-  <h2 style="text-align:center">📰 Annonces récentes</h2>
+  <h2>📰 Annonces récentes</h2>
   <div id="liste-annonces"></div>
 
   <!-- Firebase SDKs -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
     import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
+    import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-storage.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyAfaaMyk4_CjF9SwJ4D0o-r0A5jENFJxOc",
@@ -85,37 +166,127 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
+    const storage = getStorage(app);
 
     const form = document.getElementById('formAnnonce');
     const liste = document.getElementById('liste-annonces');
+    const mediaInput = document.getElementById('mediaFiles');
+    const previewContainer = document.getElementById('previewContainer');
+    const submitBtn = document.getElementById('submitBtn');
 
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
+    let selectedFiles = [];
 
-      const annonce = {
-        nom: document.getElementById('nom').value,
-        type: document.getElementById('type').value,
-        message: document.getElementById('message').value,
-        date: new Date().toISOString()
-      };
-
-      push(ref(db, 'annonces'), annonce);
-      form.reset();
-      alert("✅ Annonce publiée !");
+    // Gestion de la sélection de fichiers
+    mediaInput.addEventListener('change', (e) => {
+      previewContainer.innerHTML = '';
+      selectedFiles = [];
+      
+      const files = Array.from(e.target.files).slice(0, 5); // Limite à 5 fichiers
+      
+      files.forEach((file, index) => {
+        selectedFiles.push(file);
+        
+        const previewItem = document.createElement('div');
+        previewItem.className = 'preview-item';
+        
+        if (file.type.startsWith('image/')) {
+          const img = document.createElement('img');
+          img.src = URL.createObjectURL(file);
+          previewItem.appendChild(img);
+        } else if (file.type.startsWith('video/')) {
+          const video = document.createElement('video');
+          video.src = URL.createObjectURL(file);
+          video.controls = true;
+          previewItem.appendChild(video);
+        }
+        
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'remove-btn';
+        removeBtn.innerHTML = '×';
+        removeBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          selectedFiles.splice(index, 1);
+          previewItem.remove();
+        });
+        
+        previewItem.appendChild(removeBtn);
+        previewContainer.appendChild(previewItem);
+      });
     });
 
-    // Affichage dynamique
+    // Soumission du formulaire
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Publication en cours...';
+
+      try {
+        const nom = document.getElementById('nom').value;
+        const type = document.getElementById('type').value;
+        const message = document.getElementById('message').value;
+        
+        // Téléchargement des médias
+        const mediaUrls = [];
+        
+        for (const file of selectedFiles) {
+          const fileRef = storageRef(storage, `annonces/${Date.now()}_${file.name}`);
+          await uploadBytes(fileRef, file);
+          const url = await getDownloadURL(fileRef);
+          mediaUrls.push({
+            url,
+            type: file.type.startsWith('video/') ? 'video' : 'image'
+          });
+        }
+        
+        // Enregistrement dans la base de données
+        const annonce = {
+          nom,
+          type,
+          message,
+          media: mediaUrls,
+          date: new Date().toISOString()
+        };
+
+        await push(ref(db, 'annonces'), annonce);
+        form.reset();
+        previewContainer.innerHTML = '';
+        selectedFiles = [];
+        alert("✅ Annonce publiée avec succès !");
+      } catch (error) {
+        console.error("Erreur lors de la publication:", error);
+        alert("❌ Une erreur est survenue lors de la publication");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Publier l\'annonce';
+      }
+    });
+
+    // Affichage dynamique des annonces
     onChildAdded(ref(db, 'annonces'), (data) => {
       const annonce = data.val();
       const div = document.createElement('div');
       div.className = 'annonce';
+      
+      let mediaHTML = '';
+      if (annonce.media && annonce.media.length > 0) {
+        annonce.media.forEach(item => {
+          if (item.type === 'image') {
+            mediaHTML += `<img src="${item.url}" alt="Média annonce">`;
+          } else if (item.type === 'video') {
+            mediaHTML += `<video controls><source src="${item.url}" type="video/mp4">Votre navigateur ne supporte pas les vidéos.</video>`;
+          }
+        });
+      }
+      
       div.innerHTML = `
         <h3>${annonce.type} – ${annonce.nom}</h3>
         <p>${annonce.message}</p>
+        ${mediaHTML}
         <small>🕒 ${new Date(annonce.date).toLocaleString()}</small>
       `;
+      
       liste.prepend(div);
     });
   </script>
 </body>
-</html>
+  </html>
