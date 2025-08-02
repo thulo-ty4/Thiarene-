@@ -16,5 +16,12 @@
   <url>
     <loc>https://thiaren.netlify.app/chefferie</loc>
   </url>
+<url>
+    <loc>https://thiaren.netlify.app/géographie</loc>
+  </url>
+  <url>
+    <loc>https://thiaren.netlify.app/recensement</loc>
+  </url>
+  
   <!-- Ajoute ici toutes les autres pages de ton site -->
 </urlset>
