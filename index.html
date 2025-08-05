@@ -706,70 +706,7 @@
       &copy; 2025 <strong>Thiarene-Plus</strong> - Tous droits réservés
     </div>
   </div>
-  </footer>
-  <script>
-    // Fonction pour filtrer les actualités
-    function filterNews(category) {
-      const cards = document.querySelectorAll('.news-card');
-      const buttons = document.querySelectorAll('.filter-btn');
-      
-      // Mettre à jour les boutons actifs
-      buttons.forEach(btn => {
-        if (btn.textContent.includes(category)) {
-          btn.classList.add('active');
-        } else if (category === 'all' && btn.textContent.includes('Tout voir')) {
-          btn.classList.add('active');
-        } else {
-          btn.classList.remove('active');
-        }
-      });
-      
-      // Filtrer les cartes
-      cards.forEach(card => {
-        if (category === 'all' || card.dataset.category === category) {
-          card.style.display = 'block';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    }
-
-    // Fonction pour basculer entre lire plus/lire moins
-    function toggleReadMore(index) {
-      const content = document.getElementById(`content-${index}`);
-      const button = content.parentElement.querySelector('.read-more-btn');
-      
-      content.classList.toggle('collapsed');
-      const btnText = button.querySelector('.btn-text');
-      btnText.textContent = content.classList.contains('collapsed') ? 'Lire plus' : 'Lire moins';
-    }
-
-    // Vérifier les nouvelles actualités
-    document.addEventListener('DOMContentLoaded', () => {
-      const lastVisit = parseInt(localStorage.getItem('lastVisit') || 0);
-      const now = Date.now();
-      let foundNew = false;
-
-      // Vérifier les dates des actualités
-      document.querySelectorAll('.news-card').forEach(card => {
-        const dateStr = card.dataset.newsDate;
-        if (!dateStr) return;
-
-        const articleDate = new Date(dateStr).getTime();
-
-        // Si l'actualité est plus récente que la dernière visite
-        if (articleDate > lastVisit) {
-          foundNew = true;
-          
-          // Ajouter un badge "Nouveau"
-          const h2 = card.querySelector('h2');
-          if (h2 && !h2.innerHTML.includes('🆕')) {
-            h2.innerHTML = '🆕 ' + h2.innerHTML;
-          }
-        }
-      });
-
-      // Afficher l'alerte si nouvelles actualités
+  nouvelles actualités
       if (foundNew) {
         document.getElementById('news-alert').style.display = 'block';
       }
@@ -784,6 +721,45 @@
         .then(reg => console.log('Service worker enregistré ✅'))
         .catch(err => console.log('Service worker erreur ❌', err));
     }
-  </script>
+      </script>
+    <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+  import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-messaging.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAfaaMyk4_CjF9SwJ4D0o-r0A5jENFJxOc",
+    authDomain: "blossomverse-lgajk.firebaseapp.com",
+    projectId: "blossomverse-lgajk",
+    storageBucket: "blossomverse-lgajk.appspot.com",
+    messagingSenderId: "588813220309",
+    appId: "1:588813220309:web:ea1934d655e1d2397ce55c"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const messaging = getMessaging(app);
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('firebase-messaging-sw.js')
+      .then((registration) => {
+        console.log('Service worker enregistré ✅');
+
+        getToken(messaging, {
+          vapidKey: "BLOAjTgMrPXBk5gaC6Fx-nKBkhFMYiOrXRpnxh7c3o9W139lNrw_hMyhb5Uca5WGjrYxgiGvIrBPOcB8EHrszwY",
+          serviceWorkerRegistration: registration
+        }).then((token) => {
+          console.log("Token Firebase utilisateur 🔑", token);
+          // Tu peux enregistrer ce token dans Firebase Database pour cibler l'utilisateur ensuite
+        }).catch((err) => {
+          console.log("Erreur de permission ou token ❌", err);
+        });
+      });
+  }
+
+  // Notification visible directement (ex : actualité publiée)
+  onMessage(messaging, (payload) => {
+    alert("🔔 Nouvelle annonce : " + payload.notification.title);
+  });
+</script>
+  
 </body>
 </html>
