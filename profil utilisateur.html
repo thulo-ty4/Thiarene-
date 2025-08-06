@@ -1,75 +1,157 @@
-<!DOCTYPE html><html lang="fr">
+<!DOCTYPE html>
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mon Profil - Thiarene+</title>
   <style>
+    :root {
+      --primary-color: #2A5CAA;
+      --secondary-color: #f4f4f4;
+      --text-color: #333;
+      --text-light: #666;
+      --white: #ffffff;
+      --border-radius: 12px;
+      --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f4f4f4;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--secondary-color);
       margin: 0;
       padding: 0;
+      color: var(--text-color);
+      line-height: 1.6;
     }
+
     .container {
       max-width: 800px;
       margin: 40px auto;
-      background: white;
+      background: var(--white);
       padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
     }
+
     .profile-header {
       display: flex;
       align-items: center;
       gap: 20px;
+      margin-bottom: 30px;
     }
-    .profile-header img {
+
+    .profile-picture {
       width: 100px;
       height: 100px;
       object-fit: cover;
       border-radius: 50%;
-      border: 3px solid #2A5CAA;
+      border: 3px solid var(--primary-color);
     }
-    .profile-header h2 {
-      margin: 0;
-      color: #2A5CAA;
+
+    .profile-info {
+      flex: 1;
     }
-    .annonces-section {
-      margin-top: 40px;
+
+    .profile-name {
+      margin: 0 0 10px 0;
+      color: var(--primary-color);
+      font-size: 1.8rem;
     }
+
+    .btn {
+      padding: 8px 16px;
+      background-color: var(--primary-color);
+      color: var(--white);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #1d4a8a;
+    }
+
+    .section-title {
+      color: var(--primary-color);
+      margin-bottom: 20px;
+      font-size: 1.4rem;
+    }
+
+    .annonces-list {
+      margin-top: 20px;
+    }
+
     .annonce {
       border: 1px solid #ddd;
       border-radius: 10px;
       padding: 15px;
       margin-bottom: 20px;
       background: #fafafa;
+      transition: transform 0.2s ease;
     }
-    .annonce h4 {
-      margin: 0 0 10px;
-      color: #333;
+
+    .annonce:hover {
+      transform: translateY(-2px);
     }
-    .annonce small {
-      color: #666;
+
+    .annonce-title {
+      margin: 0 0 10px 0;
+      color: var(--text-color);
+      font-size: 1.1rem;
+    }
+
+    .annonce-date {
+      color: var(--text-light);
+      font-size: 0.8rem;
+      display: block;
+      margin-top: 10px;
+    }
+
+    .hidden {
+      display: none;
     }
   </style>
 </head>
 <body>
   <div class="container">
+    <!-- En-tête du profil -->
     <div class="profile-header">
-      <img src="default-profile.jpg" id="photoProfil" alt="Photo de profil">
-      <div>
-        <h2 id="nomUtilisateur">Nom de l'utilisateur</h2>
-        <button onclick="changerPhoto()">Changer la photo</button>
+      <img src="default-profile.jpg" id="profilePhoto" class="profile-picture" alt="Photo de profil">
+      <div class="profile-info">
+        <h1 id="userName" class="profile-name">Nom de l'utilisateur</h1>
+        <button id="changePhotoBtn" class="btn">Changer la photo</button>
+        <input type="file" id="photoInput" class="hidden" accept="image/*">
       </div>
-    </div><div class="annonces-section">
-  <h3>Mes Annonces</h3>
-  <div id="mesAnnonces"></div>
-</div>
+    </div>
 
-  </div>  <script type="module">
+    <!-- Section des annonces -->
+    <section class="annonces-section">
+      <h2 class="section-title">Mes Annonces</h2>
+      <div id="annoncesList" class="annonces-list"></div>
+    </section>
+  </div>
+
+  <script type="module">
+    // Configuration Firebase
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-    import { getDatabase, ref, onChildAdded } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
+    import { 
+      getAuth, 
+      onAuthStateChanged, 
+      updateProfile 
+    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+    import { 
+      getDatabase, 
+      ref, 
+      onChildAdded 
+    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
+    import { 
+      getStorage, 
+      ref as storageRef, 
+      uploadBytes, 
+      getDownloadURL 
+    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-storage.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyAfaaMyk4_CjF9SwJ4D0o-r0A5jENFJxOc",
@@ -81,100 +163,105 @@
       appId: "1:588813220309:web:ea1934d655e1d2397ce55c"
     };
 
+    // Initialisation Firebase
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getDatabase(app);
+    const storage = getStorage(app);
 
-    const nomUtilisateur = document.getElementById('nomUtilisateur');
-    const mesAnnonces = document.getElementById('mesAnnonces');
+    // Éléments du DOM
+    const userNameElement = document.getElementById('userName');
+    const profilePhotoElement = document.getElementById('profilePhoto');
+    const annoncesListElement = document.getElementById('annoncesList');
+    const changePhotoBtn = document.getElementById('changePhotoBtn');
+    const photoInput = document.getElementById('photoInput');
 
+    // Gestion de l'état d'authentification
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        nomUtilisateur.textContent = user.displayName || user.email;
-
-        const annoncesRef = ref(db, 'annonces');
-        onChildAdded(annoncesRef, (snapshot) => {
-          const data = snapshot.val();
-          if (data.nom === user.displayName || data.nom === user.email) {
-            const div = document.createElement('div');
-            div.className = 'annonce';
-            div.innerHTML = `
-              <h4>${data.type}</h4>
-              <p>${data.message}</p>
-              <small>${new Date(data.date).toLocaleString()}</small>
-            `;
-            mesAnnonces.prepend(div);
-          }
-        });
+        updateUserProfile(user);
+        loadUserAnnonces(user);
+        setupPhotoChange(user);
       } else {
         window.location.href = 'login.html';
       }
     });
 
-    function changerPhoto() {
-      alert("Fonction pour changer la photo de profil à ajouter plus tard");
-    }
-  </script>
-  <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-  import { getAuth, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-  import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-storage.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyAfaaMyk4_CjF9SwJ4D0o-r0A5jENFJxOc",
-    authDomain: "blossomverse-lgajk.firebaseapp.com",
-    projectId: "blossomverse-lgajk",
-    storageBucket: "blossomverse-lgajk.appspot.com",
-    messagingSenderId: "588813220309",
-    appId: "1:588813220309:web:ea1934d655e1d2397ce55c"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const storage = getStorage(app);
-
-  const profilePhoto = document.getElementById("profile-photo");
-  const profileName = document.getElementById("profile-name");
-  const changeBtn = document.getElementById("changePhotoBtn");
-  const changeInput = document.getElementById("changePhoto");
-
-  onAuthStateChanged(auth, async (user) => {
-    if (user) {
-      profileName.textContent = user.displayName || "Utilisateur anonyme";
+    /**
+     * Met à jour les informations du profil utilisateur
+     * @param {Object} user - L'objet utilisateur Firebase
+     */
+    function updateUserProfile(user) {
+      userNameElement.textContent = user.displayName || user.email;
+      
       if (user.photoURL) {
-        profilePhoto.src = user.photoURL;
+        profilePhotoElement.src = user.photoURL;
       }
+    }
 
-      changeBtn.addEventListener("click", () => {
-        changeInput.click();
-      });
-
-      changeInput.addEventListener("change", async () => {
-        const file = changeInput.files[0];
-        if (!file) return;
-
-        const storagePath = `users/${user.uid}/profile_${Date.now()}.jpg`;
-        const fileRef = ref(storage, storagePath);
-
-        try {
-          await uploadBytes(fileRef, file);
-          const url = await getDownloadURL(fileRef);
-          
-          await updateProfile(user, {
-            photoURL: url
-          });
-
-          profilePhoto.src = url;
-          alert("✅ Photo de profil mise à jour !");
-        } catch (error) {
-          console.error("Erreur lors du changement de photo :", error);
-          alert("❌ Échec de la mise à jour de la photo");
+    /**
+     * Charge les annonces de l'utilisateur
+     * @param {Object} user - L'objet utilisateur Firebase
+     */
+    function loadUserAnnonces(user) {
+      const annoncesRef = ref(db, 'annonces');
+      
+      onChildAdded(annoncesRef, (snapshot) => {
+        const annonce = snapshot.val();
+        
+        if (annonce.nom === user.displayName || annonce.nom === user.email) {
+          createAnnonceElement(annonce);
         }
       });
-    } else {
-      window.location.href = "login.html";
     }
-  });
+
+    /**
+     * Crée un élément HTML pour une annonce
+     * @param {Object} annonce - Les données de l'annonce
+     */
+    function createAnnonceElement(annonce) {
+      const annonceElement = document.createElement('div');
+      annonceElement.className = 'annonce';
+      
+      annonceElement.innerHTML = `
+        <h3 class="annonce-title">${annonce.type}</h3>
+        <p>${annonce.message}</p>
+        <small class="annonce-date">${new Date(annonce.date).toLocaleString()}</small>
+      `;
+      
+      annoncesListElement.prepend(annonceElement);
+    }
+
+    /**
+     * Configure le changement de photo de profil
+     * @param {Object} user - L'objet utilisateur Firebase
+     */
+    function setupPhotoChange(user) {
+      changePhotoBtn.addEventListener('click', () => photoInput.click());
+      
+      photoInput.addEventListener('change', async () => {
+        const file = photoInput.files[0];
+        if (!file) return;
+        
+        try {
+          // Téléversement de la nouvelle photo
+          const filePath = `users/${user.uid}/profile_${Date.now()}.jpg`;
+          const fileReference = storageRef(storage, filePath);
+          
+          await uploadBytes(fileReference, file);
+          const photoURL = await getDownloadURL(fileReference);
+          
+          // Mise à jour du profil
+          await updateProfile(user, { photoURL });
+          profilePhotoElement.src = photoURL;
+          
+          alert("Photo de profil mise à jour avec succès !");
+        } catch (error) {
+          console.error("Erreur lors du changement de photo :", error);
+          alert("Une erreur est survenue lors de la mise à jour de la photo");
+        }
+      });
+    }
   </script>
 </body>
-</html>
+  </html>
