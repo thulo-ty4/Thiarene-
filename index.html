@@ -491,16 +491,14 @@ sa<!DOCTYPE html>
         <button class="filter-btn active" onclick="filterNews('all')">
           <span>📋</span> Tout voir
         </button>
-        <button class="filter-btn" onclick="filterNews('📜 Histoire')">
-          <span>📜</span> Histoire
-        </button>
-        <button class="filter-btn" onclick="filterNews('👥 Population')">
+        <button class="filter-btn" onclick="filterNews('📜 Histoire', this)">
+        <button class="filter-btn" onclick="filterNews('👥 Population', this)">
           <span>👥</span> Population
         </button>
-        <button class="filter-btn" onclick="filterNews('🏛️ Chefferie')">
+        <button class="filter-btn" onclick="filterNews('🏛️ Chefferie', this)">
           <span>🏛️</span> Chefferie
         </button>
-        <button class="filter-btn" onclick="filterNews('🌍 Géographie')">
+        <button class="filter-btn" onclick="filterNews('🌍 Géographie', this)">
           <span>🌍</span> Géographie
         </button>
       </div>
@@ -515,15 +513,6 @@ sa<!DOCTYPE html>
     <div id="news-alert" class="news-alert">
       🆕 Nouvelle(s) actualité(s) ajoutée(s) depuis votre dernière visite !
     </div>
-
-    <main>
-      <div class="news-grid">
-        <!-- Article 1 - Géographie -->
-        <article class="news-card" data-category="🌍 Géographie" data-news-date="2025-07-29">
-          <div class="news-meta">
-            <span class="news-category"><span>🌍</span> Géographie</span>
-            <span class="news-views"><span>👁️</span> 620 vues</span>
-          <
     </div>
 
     <div class="cta-section">
@@ -745,14 +734,24 @@ sa<!DOCTYPE html>
     });
   }
 
-  nouvelles actualités
-      if (foundNew) {
-        document.getElementById('news-alert').style.display = 'block';
-      }
+document.addEventListener('DOMContentLoaded', () => {
+  const lastVisit = localStorage.getItem('lastVisit');
+  const now = new Date().toISOString();
 
-      // Enregistrer cette visite
-      localStorage.setItem('lastVisit', now);
-    });
+  let foundNew = false;
+  document.querySelectorAll('.news-card').forEach(card => {
+    const date = card.getAttribute('data-news-date');
+    if (date > lastVisit) {
+      foundNew = true;
+    }
+  });
+
+  if (foundNew) {
+    document.getElementById('news-alert').style.display = 'block';
+  }
+
+  localStorage.setItem('lastVisit', now);
+});
 
     // Enregistrer le Service Worker pour PWA
     if ('serviceWorker' in navigator) {
