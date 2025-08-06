@@ -1,0 +1,118 @@
+<!DOCTYPE html><html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon Profil - Thiarene+</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .profile-header img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #2A5CAA;
+    }
+    .profile-header h2 {
+      margin: 0;
+      color: #2A5CAA;
+    }
+    .annonces-section {
+      margin-top: 40px;
+    }
+    .annonce {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 20px;
+      background: #fafafa;
+    }
+    .annonce h4 {
+      margin: 0 0 10px;
+      color: #333;
+    }
+    .annonce small {
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="profile-header">
+      <img src="default-profile.jpg" id="photoProfil" alt="Photo de profil">
+      <div>
+        <h2 id="nomUtilisateur">Nom de l'utilisateur</h2>
+        <button onclick="changerPhoto()">Changer la photo</button>
+      </div>
+    </div><div class="annonces-section">
+  <h3>Mes Annonces</h3>
+  <div id="mesAnnonces"></div>
+</div>
+
+  </div>  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+    import { getDatabase, ref, onChildAdded } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAfaaMyk4_CjF9SwJ4D0o-r0A5jENFJxOc",
+      authDomain: "blossomverse-lgajk.firebaseapp.com",
+      databaseURL: "https://blossomverse-lgajk-default-rtdb.firebaseio.com",
+      projectId: "blossomverse-lgajk",
+      storageBucket: "blossomverse-lgajk.appspot.com",
+      messagingSenderId: "588813220309",
+      appId: "1:588813220309:web:ea1934d655e1d2397ce55c"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+
+    const nomUtilisateur = document.getElementById('nomUtilisateur');
+    const mesAnnonces = document.getElementById('mesAnnonces');
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        nomUtilisateur.textContent = user.displayName || user.email;
+
+        const annoncesRef = ref(db, 'annonces');
+        onChildAdded(annoncesRef, (snapshot) => {
+          const data = snapshot.val();
+          if (data.nom === user.displayName || data.nom === user.email) {
+            const div = document.createElement('div');
+            div.className = 'annonce';
+            div.innerHTML = `
+              <h4>${data.type}</h4>
+              <p>${data.message}</p>
+              <small>${new Date(data.date).toLocaleString()}</small>
+            `;
+            mesAnnonces.prepend(div);
+          }
+        });
+      } else {
+        window.location.href = 'login.html';
+      }
+    });
+
+    function changerPhoto() {
+      alert("Fonction pour changer la photo de profil à ajouter plus tard");
+    }
+  </script></body>
+</html>
