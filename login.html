@@ -1,0 +1,94 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion - Thiarene+</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .auth-box {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    button {
+      background: #2A5CAA;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #1b3f7a;
+    }
+    .link {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-box">
+    <h2>Connexion</h2>
+    <input type="email" id="login-email" placeholder="Email">
+    <input type="password" id="login-password" placeholder="Mot de passe">
+    <button onclick="loginUser()">Se connecter</button>
+    <div class="link">
+      <a href="register.html">Pas encore de compte ? Créer un compte</a>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAfaaMyk4_CjF9SwJ4D0o-r0A5jENFJxOc",
+      authDomain: "blossomverse-lgajk.firebaseapp.com",
+      projectId: "blossomverse-lgajk",
+      storageBucket: "blossomverse-lgajk.appspot.com",
+      messagingSenderId: "588813220309",
+      appId: "1:588813220309:web:ea1934d655e1d2397ce55c"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    window.loginUser = function () {
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          alert('Connexion réussie !');
+          window.location.href = 'index.html';
+        })
+        .catch(error => {
+          alert('Erreur : ' + error.message);
+        });
+    }
+  </script>
+</body>
+</html>
