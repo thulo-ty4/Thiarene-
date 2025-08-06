@@ -707,56 +707,49 @@
       &copy; 2025 <strong>Thiarene-Plus</strong> - Tous droits réservés
     </div>
   </div>
-    
-      <script>
+    <!-- Script pour les filtres et alertes -->
+<script>
   function filterNews(category, button) {
     const cards = document.querySelectorAll('.news-card');
     const buttons = document.querySelectorAll('.filter-btn');
 
-    // Retirer tous les boutons actifs
     buttons.forEach(btn => btn.classList.remove('active'));
-
-    // Ajouter la classe active au bouton cliqué
     button.classList.add('active');
 
-    // Afficher ou cacher les cartes selon la catégorie
     cards.forEach(card => {
       const cardCategory = card.getAttribute('data-category');
-      if (category === 'all' || cardCategory === category) {
-        card.style.display = 'flex';
-      } else {
-        card.style.display = 'none';
-      }
+      card.style.display = (category === 'all' || cardCategory === category) ? 'flex' : 'none';
     });
   }
 
-document.addEventListener('DOMContentLoaded', () => {
-  const lastVisit = localStorage.getItem('lastVisit');
-  const now = new Date().toISOString();
+  document.addEventListener('DOMContentLoaded', () => {
+    const lastVisit = localStorage.getItem('lastVisit');
+    const now = new Date().toISOString();
+    let foundNew = false;
 
-  let foundNew = false;
-  document.querySelectorAll('.news-card').forEach(card => {
-    const date = card.getAttribute('data-news-date');
-    if (date > lastVisit) {
-      foundNew = true;
+    document.querySelectorAll('.news-card').forEach(card => {
+      const date = card.getAttribute('data-news-date');
+      if (date > lastVisit) {
+        foundNew = true;
+      }
+    });
+
+    if (foundNew) {
+      document.getElementById('news-alert').style.display = 'block';
     }
+
+    localStorage.setItem('lastVisit', now);
   });
 
-  if (foundNew) {
-    document.getElementById('news-alert').style.display = 'block';
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js')
+      .then(reg => console.log('Service worker enregistré ✅'))
+      .catch(err => console.log('Service worker erreur ❌', err));
   }
+</script>
 
-  localStorage.setItem('lastVisit', now);
-});
-
-    // Enregistrer le Service Worker pour PWA
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js')
-        .then(reg => console.log('Service worker enregistré ✅'))
-        .catch(err => console.log('Service worker erreur ❌', err));
-    }
-      </script>
-    <script type="module">
+<!-- Script Firebase Messaging -->
+<script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
   import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-messaging.js";
 
@@ -776,25 +769,24 @@ document.addEventListener('DOMContentLoaded', () => {
     navigator.serviceWorker.register('firebase-messaging-sw.js')
       .then((registration) => {
         console.log('Service worker enregistré ✅');
-
         getToken(messaging, {
           vapidKey: "BLOAjTgMrPXBk5gaC6Fx-nKBkhFMYiOrXRpnxh7c3o9W139lNrw_hMyhb5Uca5WGjrYxgiGvIrBPOcB8EHrszwY",
           serviceWorkerRegistration: registration
         }).then((token) => {
           console.log("Token Firebase utilisateur 🔑", token);
-          // Tu peux enregistrer ce token dans Firebase Database pour cibler l'utilisateur ensuite
+          // À enregistrer dans Firebase Realtime Database si besoin
         }).catch((err) => {
           console.log("Erreur de permission ou token ❌", err);
         });
       });
   }
 
-  // Notification visible directement (ex : actualité publiée)
   onMessage(messaging, (payload) => {
     alert("🔔 Nouvelle annonce : " + payload.notification.title);
   });
-      
-<!-- Auth check for index.html -->
+</script>
+
+<!-- Script Firebase Auth pour sécuriser la page -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
   import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
@@ -817,7 +809,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 </script>
-  </script>
-  
 </body>
 </html>
