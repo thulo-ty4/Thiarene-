@@ -114,5 +114,67 @@
     function changerPhoto() {
       alert("Fonction pour changer la photo de profil à ajouter plus tard");
     }
-  </script></body>
+  </script>
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+  import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-storage.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAfaaMyk4_CjF9SwJ4D0o-r0A5jENFJxOc",
+    authDomain: "blossomverse-lgajk.firebaseapp.com",
+    projectId: "blossomverse-lgajk",
+    storageBucket: "blossomverse-lgajk.appspot.com",
+    messagingSenderId: "588813220309",
+    appId: "1:588813220309:web:ea1934d655e1d2397ce55c"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const storage = getStorage(app);
+
+  const profilePhoto = document.getElementById("profile-photo");
+  const profileName = document.getElementById("profile-name");
+  const changeBtn = document.getElementById("changePhotoBtn");
+  const changeInput = document.getElementById("changePhoto");
+
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      profileName.textContent = user.displayName || "Utilisateur anonyme";
+      if (user.photoURL) {
+        profilePhoto.src = user.photoURL;
+      }
+
+      changeBtn.addEventListener("click", () => {
+        changeInput.click();
+      });
+
+      changeInput.addEventListener("change", async () => {
+        const file = changeInput.files[0];
+        if (!file) return;
+
+        const storagePath = `users/${user.uid}/profile_${Date.now()}.jpg`;
+        const fileRef = ref(storage, storagePath);
+
+        try {
+          await uploadBytes(fileRef, file);
+          const url = await getDownloadURL(fileRef);
+          
+          await updateProfile(user, {
+            photoURL: url
+          });
+
+          profilePhoto.src = url;
+          alert("✅ Photo de profil mise à jour !");
+        } catch (error) {
+          console.error("Erreur lors du changement de photo :", error);
+          alert("❌ Échec de la mise à jour de la photo");
+        }
+      });
+    } else {
+      window.location.href = "login.html";
+    }
+  });
+  </script>
+</body>
 </html>
