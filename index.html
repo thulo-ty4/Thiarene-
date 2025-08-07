@@ -3,19 +3,19 @@
 <head>
   <link rel="icon" href="logo192.png" type="image/png">
   <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "url": "https://thiaren.netlify.app",
-  "logo": "https://thiaren.netlify.app/logo192.png"
-}
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "url": "https://thiaren.netlify.app",
+    "logo": "https://thiaren.netlify.app/logo192.png"
+  }
   </script>
   <meta property="og:title" content="Thiarene-Plus - Actualités du village" />
-<meta property="og:description" content="Site d'actualités et d'informations sur le village de Thiaréne au Sénégal" />
-<meta property="og:image" content="https://thiaren.netlify.app/logo192.png" />
-<meta property="og:url" content="https://thiaren.netlify.app" />
-<meta name="twitter:card" content="summary_large_image">
- <meta name="google-adsense-account" content="ca-pub-4368298895659451">
+  <meta property="og:description" content="Site d'actualités et d'informations sur le village de Thiaréne au Sénégal" />
+  <meta property="og:image" content="https://thiaren.netlify.app/logo192.png" />
+  <meta property="og:url" content="https://thiaren.netlify.app" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="google-adsense-account" content="ca-pub-4368298895659451">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#2c3e50">
   <meta name="google-site-verification" content="Y3Dg0w4qQaNqzF66pTOVUrdQLLfiaMMEu5s9hYRKkoI" />
@@ -26,7 +26,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
   <style>
     :root {
       --primary-color: #2A5CAA;
@@ -38,6 +40,7 @@
       --white: #ffffff;
       --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       --transition: all 0.3s ease;
+      --like-color: #e74c3c;
     }
 
     * {
@@ -88,21 +91,25 @@
 
     .logo {
       height: 80px;
-      width: auto;
+      width: 80px;
       border-radius: 50%;
       border: 3px solid var(--secondary-color);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      animation: pulse 2s infinite, rotate 10s linear infinite;
+      object-fit: cover;
     }
 
     .header-text h1 {
       font-size: 2.2rem;
       margin-bottom: 0.5rem;
       font-weight: 700;
+      animation: fadeInDown 1s ease;
     }
 
     .header-text p {
       font-size: 1.1rem;
       opacity: 0.9;
+      animation: fadeInUp 1s ease 0.3s both;
     }
 
     .banniere {
@@ -113,6 +120,7 @@
       margin-top: 1.5rem;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
       border: 4px solid var(--white);
+      animation: zoomIn 1s ease;
     }
 
     /* Navigation */
@@ -215,6 +223,7 @@
       align-items: center;
       gap: 10px;
       margin: 0 auto;
+      animation: pulse 2s infinite;
     }
 
     .cta-btn:hover {
@@ -245,6 +254,17 @@
       100% { transform: scale(1); }
     }
 
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
     /* Main Content */
     main {
       padding: 20px 0 40px;
@@ -265,6 +285,7 @@
       transition: var(--transition);
       display: flex;
       flex-direction: column;
+      animation: fadeInUp 0.5s ease;
     }
 
     .news-card:hover {
@@ -297,6 +318,9 @@
 
     .news-content {
       padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
     }
 
     .news-card h2 {
@@ -312,6 +336,11 @@
       object-fit: cover;
       border-top: 3px solid var(--secondary-color);
       border-bottom: 3px solid var(--secondary-color);
+      transition: transform 0.5s ease;
+    }
+
+    .news-card:hover .news-image {
+      transform: scale(1.03);
     }
 
     .news-text {
@@ -343,6 +372,7 @@
       gap: 5px;
       transition: var(--transition);
       padding: 8px 0;
+      align-self: flex-start;
     }
 
     .read-more-btn:hover {
@@ -363,6 +393,41 @@
       right: 0;
       height: 50px;
       background: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--white));
+    }
+
+    /* Like Button */
+    .like-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: auto;
+      padding-top: 15px;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .like-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.2rem;
+      color: var(--text-light);
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .like-btn.liked {
+      color: var(--like-color);
+    }
+
+    .like-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .like-count {
+      font-size: 0.9rem;
+      color: var(--text-light);
     }
 
     /* Footer */
@@ -394,11 +459,129 @@
 
     .footer-links a:hover {
       color: var(--secondary-color);
+      transform: translateY(-2px);
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .social-icons a {
+      color: var(--white);
+      font-size: 1.5rem;
+      transition: var(--transition);
+    }
+
+    .social-icons a:hover {
+      color: var(--secondary-color);
+      transform: translateY(-3px);
     }
 
     .copyright {
       opacity: 0.8;
       font-size: 0.9rem;
+    }
+
+    /* Hamburger Menu */
+    #hamburger {
+      font-size: 30px;
+      cursor: pointer;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1001;
+      background: var(--primary-color);
+      color: white;
+      padding: 10px 15px;
+      border-radius: 6px;
+      transition: var(--transition);
+      display: none;
+    }
+
+    #hamburger:hover {
+      background: var(--secondary-color);
+      transform: scale(1.1);
+    }
+
+    #sideMenu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 250px;
+      height: 100%;
+      background-color: var(--primary-color);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      padding: 60px 20px;
+      gap: 20px;
+      z-index: 1000;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+    }
+
+    #sideMenu a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      padding: 10px;
+      border-radius: 5px;
+      transition: var(--transition);
+    }
+
+    #sideMenu a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      padding-left: 15px;
+    }
+
+    #sideMenu button {
+      background: none;
+      border: none;
+      color: white;
+      text-align: left;
+      font-size: 18px;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    #sideMenu button:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      padding-left: 15px;
+    }
+
+    #sideMenu.show {
+      transform: translateX(0);
+    }
+
+    /* Floating Action Button */
+    .fab {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      z-index: 99;
+      transition: var(--transition);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .fab:hover {
+      transform: translateY(-5px) scale(1.1);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
     }
 
     /* Responsive Design */
@@ -409,11 +592,16 @@
 
       .nav-links {
         gap: 15px;
+        display: none;
       }
 
       .nav-links a {
         font-size: 0.9rem;
         padding: 0.4rem 0.8rem;
+      }
+
+      #hamburger {
+        display: block;
       }
 
       .filter-buttons {
@@ -444,12 +632,6 @@
         font-size: 1.5rem;
       }
 
-      .nav-links {
-        flex-direction: column;
-        gap: 10px;
-        align-items: center;
-      }
-
       .filter-buttons {
         flex-direction: column;
         align-items: center;
@@ -458,45 +640,6 @@
       .filter-btn {
         width: 80%;
       }
-    }
-    #hamburger {
-  font-size: 30px;
-  cursor: pointer;
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  z-index: 1001;
-  background: #2A5CAA;
-  color: white;
-  padding: 10px 15px;
-  border-radius: 6px;
-}
-
-#sideMenu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 250px;
-  height: 100%;
-  background-color: #2A5CAA;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  padding: 60px 20px;
-  gap: 20px;
-  z-index: 1000;
-  transform: translateX(-100%);
-  transition: transform 0.3s ease;
-}
-
-#sideMenu a {
-  color: white;
-  text-decoration: none;
-  font-size: 18px;
-}
-
-#sideMenu.show {
-  transform: translateX(0);
     }
   </style>
 </head>
@@ -519,25 +662,33 @@
   <nav class="main-nav">
     <div class="container">
       <!-- Bouton hamburger -->
-<div id="hamburger" onclick="toggleMenu()">☰</div>
+      <div id="hamburger" onclick="toggleMenu()">☰</div>
 
-<!-- Menu latéral -->
-<div id="sideMenu" class="hidden">
-  <a href="index.html">Accueil</a>
-  <a href="annonces.html">Annonces</a>
-  <a href="profil utilisateur.html">Mon compte</a>
-  <button id="logoutBtn"> Déconnexion</button>
+      <!-- Menu latéral -->
+      <div id="sideMenu">
+        <a href="index.html">Accueil</a>
+        <a href="annonces.html">Annonces</a>
+        <a href="profil utilisateur.html">Mon compte</a>
+        <button id="logoutBtn">Déconnexion</button>
+      </div>
 
-</div>
+      <ul class="nav-links">
+        <li><a href="index.html"><i class="fas fa-home"></i> Accueil</a></li>
+        <li><a href="annonces.html"><i class="fas fa-bullhorn"></i> Annonces</a></li>
+        <li><a href="profil utilisateur.html"><i class="fas fa-user"></i> Mon compte</a></li>
+      </ul>
     </div>
   </nav>
-        <div class="container">
+
+  <div class="container">
     <div class="filter-bar">
       <div class="filter-buttons">
         <button class="filter-btn active" onclick="filterNews('all')">
           <span>📋</span> Tout voir
         </button>
-        <button class="filter-btn" onclick="filterNews('📜 Histoire', this)"><span>📜</span> histoire 
+        <button class="filter-btn" onclick="filterNews('📜 Histoire', this)">
+          <span>📜</span> Histoire
+        </button>
         <button class="filter-btn" onclick="filterNews('👥 Population', this)">
           <span>👥</span> Population
         </button>
@@ -550,21 +701,14 @@
       </div>
     </div>
 
-
-
     <div id="news-alert" class="news-alert">
       🆕 Nouvelle(s) actualité(s) ajoutée(s) depuis votre dernière visite !
-    </div>
     </div>
 
     <div class="cta-section">
       <button class="cta-btn" onclick="window.location.href='annonces.html'">
         <span>📣</span> Publier une annonce maintenant
       </button>
-    </div>
-
-    <div id="news-alert" class="news-alert">
-      🆕 Nouvelle(s) actualité(s) ajoutée(s) depuis votre dernière visite !
     </div>
 
     <main>
@@ -601,6 +745,14 @@
             <button class="read-more-btn" onclick="toggleReadMore(1)">
               <span>📖</span> <span class="btn-text">Lire plus</span>
             </button>
+
+            <div class="like-section">
+              <button class="like-btn" onclick="toggleLike(this, 1)">
+                <i class="far fa-heart"></i>
+                <span class="like-text">J'aime</span>
+              </button>
+              <span class="like-count" id="like-count-1">124</span>
+            </div>
           </div>
         </article>
 
@@ -623,13 +775,21 @@
                 <li>👩 2614 femmes</li>
               </ul>
               <p>Il y a donc plus de femmes que d'hommes. Ce chiffre reste une estimation (Source : AHSD).</p>
-      
             </div>
             
             <button class="read-more-btn" onclick="toggleReadMore(2)">
               <span>📖</span> <span class="btn-text">Lire plus</span>
             </button>
-          </div
+
+            <div class="like-section">
+              <button class="like-btn" onclick="toggleLike(this, 2)">
+                <i class="far fa-heart"></i>
+                <span class="like-text">J'aime</span>
+              </button>
+              <span class="like-count" id="like-count-2">89</span>
+            </div>
+          </div>
+        </article>
 
         <!-- Article 3 - Histoire -->
         <article class="news-card" data-category="📜 Histoire" data-news-date="2025-07-29">
@@ -656,6 +816,14 @@
             <button class="read-more-btn" onclick="toggleReadMore(3)">
               <span>📖</span> <span class="btn-text">Lire plus</span>
             </button>
+
+            <div class="like-section">
+              <button class="like-btn" onclick="toggleLike(this, 3)">
+                <i class="far fa-heart"></i>
+                <span class="like-text">J'aime</span>
+              </button>
+              <span class="like-count" id="like-count-3">156</span>
+            </div>
           </div>
         </article>
 
@@ -680,6 +848,14 @@
             <button class="read-more-btn" onclick="toggleReadMore(4)">
               <span>📖</span> <span class="btn-text">Lire plus</span>
             </button>
+
+            <div class="like-section">
+              <button class="like-btn" onclick="toggleLike(this, 4)">
+                <i class="far fa-heart"></i>
+                <span class="like-text">J'aime</span>
+              </button>
+              <span class="like-count" id="like-count-4">72</span>
+            </div>
           </div>
         </article>
 
@@ -722,173 +898,255 @@
             <button class="read-more-btn" onclick="toggleReadMore(5)">
               <span>📖</span> <span class="btn-text">Lire plus</span>
             </button>
+
+            <div class="like-section">
+              <button class="like-btn" onclick="toggleLike(this, 5)">
+                <i class="far fa-heart"></i>
+                <span class="like-text">J'aime</span>
+              </button>
+              <span class="like-count" id="like-count-5">203</span>
+            </div>
           </div>
         </article>
       </div>
     </main>
   </div>
 
-  <footer style="background: #f8f8f8; color: #333; padding: 20px 0;">
-  <div class="container" style="max-width: 1000px; margin: auto; padding: 0 20px;">
-    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px;">
-      
-      <!-- Liens de navigation -->
-      <div class="footer-links" style="display: flex; gap: 15px; flex-wrap: wrap;">
-        <a href="index.html" style="text-decoration: none; color: #2A5CAA;">Accueil</a>
-        <a href="annonces.html" style="text-decoration: none; color: #2A5CAA;">Publier une annonce</a>
+  <footer>
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="index.html">Accueil</a>
+        <a href="annonces.html">Annonces</a>
+        <a href="profil utilisateur.html">Mon compte</a>
+        <a href="contact.html">Contact</a>
       </div>
 
-      <!-- Coordonnées -->
-      <div class="footer-contact" style="text-align: right; font-size: 14px;">
-        📧 Email :
-        <a href="mailto:thiareneplus@gmail.com" style="color: #2A5CAA;">thiareneplus@gmail.com</a><br>
-        
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="height: 16px; vertical-align: middle; margin-right: 5px;">
-        <a href="https://wa.me/221754513695" target="_blank" style="color: #2A5CAA;">754523695</a>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
       </div>
-    </div>
 
-    <!-- Bas de page -->
-    <div style="text-align: center; margin-top: 20px; font-size: 13px;">
-      &copy; 2025 <strong>Thiarene-Plus</strong> - Tous droits réservés
+      <div class="contact-info">
+        <p><i class="fas fa-envelope"></i> thiareneplus@gmail.com</p>
+        <p><i class="fas fa-phone"></i> +221 75 452 3695</p>
+      </div>
+
+      <p class="copyright">© 2025 Thiarene-Plus - Tous droits réservés</p>
     </div>
+  </footer>
+
+  <!-- Floating Action Button -->
+  <div class="fab" onclick="window.location.href='annonces.html'">
+    <i class="fas fa-plus"></i>
   </div>
-    <!-- Script pour les filtres et alertes -->
-<script>
-  function filterNews(category, button) {
-    const cards = document.querySelectorAll('.news-card');
-    const buttons = document.querySelectorAll('.filter-btn');
 
-    buttons.forEach(btn => btn.classList.remove('active'));
-    button.classList.add('active');
+  <!-- Scripts -->
+  <script>
+    // Fonction pour basculer le menu latéral
+    function toggleMenu() {
+      const menu = document.getElementById('sideMenu');
+      menu.classList.toggle('show');
+    }
 
-    cards.forEach(card => {
-      const cardCategory = card.getAttribute('data-category');
-      card.style.display = (category === 'all' || cardCategory === category) ? 'flex' : 'none';
+    // Fonction pour filtrer les actualités
+    function filterNews(category, button) {
+      const cards = document.querySelectorAll('.news-card');
+      const buttons = document.querySelectorAll('.filter-btn');
+
+      buttons.forEach(btn => btn.classList.remove('active'));
+      if (button) button.classList.add('active');
+
+      cards.forEach(card => {
+        const cardCategory = card.getAttribute('data-category');
+        card.style.display = (category === 'all' || cardCategory === category) ? 'flex' : 'none';
+        if (category === 'all' || cardCategory === category) {
+          card.classList.add('animate__animated', 'animate__fadeIn');
+        }
+      });
+    }
+
+    // Fonction pour basculer "Lire plus/Lire moins"
+    function toggleReadMore(id) {
+      const content = document.getElementById(`content-${id}`);
+      const btnText = document.querySelector(`#content-${id} + .read-more-btn .btn-text`);
+      
+      content.classList.toggle('collapsed');
+      btnText.textContent = content.classList.contains('collapsed') ? 'Lire plus' : 'Lire moins';
+    }
+
+    // Fonction pour gérer les likes
+    function toggleLike(button, articleId) {
+      const likeIcon = button.querySelector('i');
+      const likeText = button.querySelector('.like-text');
+      const likeCount = document.getElementById(`like-count-${articleId}`);
+      
+      if (button.classList.contains('liked')) {
+        // Retirer le like
+        button.classList.remove('liked');
+        likeIcon.classList.replace('fas', 'far');
+        likeText.textContent = 'J\'aime';
+        likeCount.textContent = parseInt(likeCount.textContent) - 1;
+      } else {
+        // Ajouter le like
+        button.classList.add('liked');
+        likeIcon.classList.replace('far', 'fas');
+        likeText.textContent = 'J\'aime';
+        likeCount.textContent = parseInt(likeCount.textContent) + 1;
+        
+        // Animation du cœur
+        likeIcon.classList.add('animate__animated', 'animate__heartBeat');
+        setTimeout(() => {
+          likeIcon.classList.remove('animate__animated', 'animate__heartBeat');
+        }, 1000);
+      }
+    }
+
+    // Vérifier les nouvelles actualités depuis la dernière visite
+    document.addEventListener('DOMContentLoaded', () => {
+      const lastVisit = localStorage.getItem('lastVisit');
+      const now = new Date().toISOString();
+      let foundNew = false;
+
+      document.querySelectorAll('.news-card').forEach(card => {
+        const date = card.getAttribute('data-news-date');
+        if (date > lastVisit) {
+          foundNew = true;
+          card.classList.add('animate__animated', 'animate__pulse');
+        }
+      });
+
+      if (foundNew) {
+        document.getElementById('news-alert').style.display = 'block';
+      }
+
+      localStorage.setItem('lastVisit', now);
     });
-  }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const lastVisit = localStorage.getItem('lastVisit');
-    const now = new Date().toISOString();
-    let foundNew = false;
+    // Service Worker pour PWA
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js')
+        .then(reg => console.log('Service worker enregistré ✅'))
+        .catch(err => console.log('Service worker erreur ❌', err));
+    }
+  </script>
 
-    document.querySelectorAll('.news-card').forEach(card => {
-      const date = card.getAttribute('data-news-date');
-      if (date > lastVisit) {
-        foundNew = true;
+  <!-- Script Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+    import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-messaging.js";
+    import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAfaaMyk4_CjF9SwJ4D0o-r0A5jENFJxOc",
+      authDomain: "blossomverse-lgajk.firebaseapp.com",
+      projectId: "blossomverse-lgajk",
+      storageBucket: "blossomverse-lgajk.appspot.com",
+      messagingSenderId: "588813220309",
+      appId: "1:588813220309:web:ea1934d655e1d2397ce55c"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const database = getDatabase(app);
+
+    // Gestion de l'authentification
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        window.location.href = 'login.html';
       }
     });
 
-    if (foundNew) {
-      document.getElementById('news-alert').style.display = 'block';
-    }
-
-    localStorage.setItem('lastVisit', now);
-  });
-
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js')
-      .then(reg => console.log('Service worker enregistré ✅'))
-      .catch(err => console.log('Service worker erreur ❌', err));
-  }
-</script>
-
-<!-- Script Firebase Messaging -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-  import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-messaging.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyAfaaMyk4_CjF9SwJ4D0o-r0A5jENFJxOc",
-    authDomain: "blossomverse-lgajk.firebaseapp.com",
-    projectId: "blossomverse-lgajk",
-    storageBucket: "blossomverse-lgajk.appspot.com",
-    messagingSenderId: "588813220309",
-    appId: "1:588813220309:web:ea1934d655e1d2397ce55c"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const messaging = getMessaging(app);
-
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('firebase-messaging-sw.js')
-      .then((registration) => {
-        console.log('Service worker enregistré ✅');
-        getToken(messaging, {
-          vapidKey: "BLOAjTgMrPXBk5gaC6Fx-nKBkhFMYiOrXRpnxh7c3o9W139lNrw_hMyhb5Uca5WGjrYxgiGvIrBPOcB8EHrszwY",
-          serviceWorkerRegistration: registration
-        }).then((token) => {
-          console.log("Token Firebase utilisateur 🔑", token);
-          // À enregistrer dans Firebase Realtime Database si besoin
-        }).catch((err) => {
-          console.log("Erreur de permission ou token ❌", err);
+    // Gestion de la déconnexion
+    const logoutBtn = document.getElementById("logoutBtn");
+    if (logoutBtn) {
+      logoutBtn.addEventListener("click", () => {
+        signOut(auth).then(() => {
+          alert("✅ Vous êtes déconnecté !");
+          window.location.href = "login.html";
+        }).catch((error) => {
+          console.error("❌ Erreur de déconnexion :", error);
         });
       });
-  }
-
-  onMessage(messaging, (payload) => {
-    alert("🔔 Nouvelle annonce : " + payload.notification.title);
-  });
-</script>
-
-<!-- Script Firebase Auth pour sécuriser la page -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyAfaaMyk4_CjF9SwJ4D0o-r0A5jENFJxOc",
-    authDomain: "blossomverse-lgajk.firebaseapp.com",
-    projectId: "blossomverse-lgajk",
-    storageBucket: "blossomverse-lgajk.appspot.com",
-    messagingSenderId: "588813220309",
-    appId: "1:588813220309:web:ea1934d655e1d2397ce55c"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-
-  onAuthStateChanged(auth, (user) => {
-    if (!user) {
-      window.location.href = 'login.html';
     }
-  });
-  </script>
-  <script>
-function toggleMenu() {
-  const menu = document.getElementById('sideMenu');
-  menu.classList.toggle('show');
-}
-</script>
-    <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-  import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyAfaaMyk4_CjF9SwJ4D0o-r0A5jENFJxOc",
-    authDomain: "blossomverse-lgajk.firebaseapp.com",
-    projectId: "blossomverse-lgajk",
-    storageBucket: "blossomverse-lgajk.appspot.com",
-    messagingSenderId: "588813220309",
-    appId: "1:588813220309:web:ea1934d655e1d2397ce55c"
-  };
+    // Gestion des notifications
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('firebase-messaging-sw.js')
+        .then((registration) => {
+          const messaging = getMessaging(app);
+          
+          getToken(messaging, {
+            vapidKey: "BLOAjTgMrPXBk5gaC6Fx-nKBkhFMYiOrXRpnxh7c3o9W139lNrw_hMyhb5Uca5WGjrYxgiGvIrBPOcB8EHrszwY",
+            serviceWorkerRegistration: registration
+          }).then((token) => {
+            console.log("Token Firebase utilisateur 🔑", token);
+            // Enregistrer le token dans la base de données si besoin
+          }).catch((err) => {
+            console.log("Erreur de permission ou token ❌", err);
+          });
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
+          onMessage(messaging, (payload) => {
+            alert("🔔 Nouvelle annonce : " + payload.notification.title);
+          });
+        });
+    }
 
-  const logoutBtn = document.getElementById("logoutBtn");
+    // Gestion des likes dans Firebase Realtime Database
+    function setupLikes() {
+      const userId = auth.currentUser?.uid;
+      if (!userId) return;
 
-  if (logoutBtn) {
-    logoutBtn.addEventListener("click", () => {
-      signOut(auth).then(() => {
-        alert("✅ Vous êtes déconnecté !");
-        window.location.href = "login.html"; // Redirige vers la page de connexion
-      }).catch((error) => {
-        console.error("❌ Erreur de déconnexion :", error);
-      });
+      // Écouter les changements de likes pour chaque article
+      for (let i = 1; i <= 5; i++) {
+        const likeRef = ref(database, `articles/${i}/likes`);
+        
+        onValue(likeRef, (snapshot) => {
+          const likes = snapshot.val() || {};
+          const likeCount = Object.keys(likes).length;
+          document.getElementById(`like-count-${i}`).textContent = likeCount;
+          
+          // Vérifier si l'utilisateur a déjà liké
+          const likeBtn = document.querySelector(`button[onclick="toggleLike(this, ${i})"]`);
+          if (likes[userId]) {
+            likeBtn.classList.add('liked');
+            likeBtn.querySelector('i').classList.replace('far', 'fas');
+          } else {
+            likeBtn.classList.remove('liked');
+            likeBtn.querySelector('i').classList.replace('fas', 'far');
+          }
+        });
+      }
+    }
+
+    // Appeler setupLikes lorsque l'utilisateur est connecté
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setupLikes();
+      }
     });
-  }
-    </script>
+
+    // Fonction pour gérer les likes avec Firebase
+    window.toggleLike = function(button, articleId) {
+      const userId = auth.currentUser?.uid;
+      if (!userId) {
+        alert("Veuillez vous connecter pour aimer un article");
+        return;
+      }
+
+      const likeRef = ref(database, `articles/${articleId}/likes/${userId}`);
+      const isLiked = button.classList.contains('liked');
+
+      if (isLiked) {
+        // Retirer le like
+        set(likeRef, null);
+      } else {
+        // Ajouter le like
+        set(likeRef, true);
+      }
+    };
+  </script>
 </body>
-</html>
+            </html>
