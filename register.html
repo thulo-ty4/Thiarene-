@@ -1,62 +1,322 @@
-<!-- register.html -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Créer un compte - Thiarene+</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    :root {
+      --primary: #4361ee;
+      --primary-dark: #3a56d4;
+      --secondary: #3f37c9;
+      --accent: #7209b7;
+      --text: #2b2d42;
+      --light: #f8f9fa;
+      --gray: #adb5bd;
+      --danger: #ef233c;
+      --success: #4cc9f0;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
     body {
       font-family: 'Poppins', sans-serif;
-      background: #f0f2f5;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
+      padding: 20px;
+      color: var(--text);
+      line-height: 1.6;
     }
+    
+    .auth-container {
+      perspective: 1000px;
+      width: 100%;
+      max-width: 480px;
+      animation: fadeIn 0.8s ease-out;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
     .auth-box {
       background: white;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
       width: 100%;
-      max-width: 400px;
+      transform-style: preserve-3d;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
     }
-    h2 {
+    
+    .auth-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+    }
+    
+    .auth-box:hover {
+      transform: translateY(-5px) rotateX(2deg);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+    
+    .logo {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
-    input, button {
+    
+    .logo h2 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 5px;
+    }
+    
+    .logo p {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+    
+    .input-group {
+      position: relative;
+      margin-bottom: 25px;
+      animation: slideUp 0.5s ease-out;
+    }
+    
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .input-group i {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray);
+      transition: all 0.3s;
+    }
+    
+    input {
       width: 100%;
-      padding: 12px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
+      padding: 16px 16px 16px 50px;
+      border: 2px solid #e9ecef;
+      border-radius: 10px;
       font-size: 16px;
+      transition: all 0.3s;
+      background-color: #f8f9fa;
+      color: var(--text);
     }
+    
+    input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+      outline: none;
+      background-color: white;
+      transform: translateY(-2px);
+    }
+    
+    input:focus + i {
+      color: var(--primary);
+      transform: translateY(-50%) scale(1.1);
+    }
+    
+    .password-strength {
+      height: 4px;
+      background: #e9ecef;
+      border-radius: 2px;
+      margin-top: 8px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .strength-meter {
+      height: 100%;
+      width: 0;
+      background: var(--danger);
+      transition: all 0.3s;
+    }
+    
     button {
-      background: #2A5CAA;
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
       color: white;
       font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
       cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 10px;
+      box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
     }
+    
     button:hover {
-      background: #1b3f7a;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(67, 97, 238, 0.4);
+      background: linear-gradient(90deg, var(--primary-dark), var(--accent));
     }
+    
+    button:active {
+      transform: translateY(0);
+    }
+    
     .link {
       text-align: center;
+      margin-top: 25px;
+      font-size: 0.95rem;
     }
+    
+    .link a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .link a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s;
+    }
+    
+    .link a:hover::after {
+      width: 100%;
+    }
+    
+    .link a:hover {
+      color: var(--primary-dark);
+    }
+    
+    .terms {
+      font-size: 0.8rem;
+      color: var(--gray);
+      text-align: center;
+      margin-top: 20px;
+      line-height: 1.5;
+    }
+    
+    .terms a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    
+    /* Messages d'erreur/succès */
+    .message {
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: fadeIn 0.5s ease-out;
+    }
+    
+    .error {
+      background-color: rgba(239, 35, 60, 0.1);
+      color: var(--danger);
+      border-left: 4px solid var(--danger);
+    }
+    
+    .success {
+      background-color: rgba(76, 201, 240, 0.1);
+      color: var(--success);
+      border-left: 4px solid var(--success);
+    }
+    
+    /* Responsive */
+    @media (max-width: 480px) {
+      .auth-box {
+        padding: 30px 20px;
+      }
+      
+      .logo h2 {
+        font-size: 1.8rem;
+      }
+      
+      input {
+        padding: 14px 14px 14px 45px;
+      }
+    }
+    
+    /* Animation delay pour les éléments */
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
   </style>
 </head>
 <body>
-  <div class="auth-box">
-    <h2>Créer un compte</h2>
-    <input type="email" id="register-email" placeholder="Email">
-    <input type="password" id="register-password" placeholder="Mot de passe">
-    <button onclick="registerUser()">S'inscrire</button>
-    <div class="link">
-      <a href="login.html">Vous avez déjà un compte ? Se connecter</a>
+  <div class="auth-container">
+    <div class="auth-box">
+      <div class="logo">
+        <h2 class="animate__animated animate__fadeInDown">Thiarene+</h2>
+        <p class="animate__animated animate__fadeIn animate__delay-1s">Rejoignez notre communauté</p>
+      </div>
+      
+      <div id="message-container"></div>
+      
+      <div class="input-group animate__animated animate__fadeIn delay-1">
+        <i class="fas fa-envelope"></i>
+        <input type="email" id="register-email" placeholder="Adresse email" autocomplete="email">
+      </div>
+      
+      <div class="input-group animate__animated animate__fadeIn delay-2">
+        <i class="fas fa-lock"></i>
+        <input type="password" id="register-password" placeholder="Mot de passe (8 caractères minimum)" autocomplete="new-password">
+        <div class="password-strength">
+          <div class="strength-meter" id="strength-meter"></div>
+        </div>
+      </div>
+      
+      <div class="input-group animate__animated animate__fadeIn delay-3">
+        <i class="fas fa-lock"></i>
+        <input type="password" id="register-confirm" placeholder="Confirmez le mot de passe" autocomplete="new-password">
+      </div>
+      
+      <button onclick="registerUser()" class="animate__animated animate__fadeIn delay-4">
+        <i class="fas fa-user-plus"></i> Créer un compte
+      </button>
+      
+      <div class="terms animate__animated animate__fadeIn delay-4">
+        En vous inscrivant, vous acceptez nos <a href="#">Conditions d'utilisation</a> et notre <a href="#">Politique de confidentialité</a>.
+      </div>
+      
+      <div class="link animate__animated animate__fadeIn delay-4">
+        <a href="login.html">Vous avez déjà un compte ? <strong>Se connecter</strong></a>
+      </div>
     </div>
   </div>
 
@@ -76,19 +336,134 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    window.registerUser = function () {
+    // Vérification de la force du mot de passe
+    document.getElementById('register-password').addEventListener('input', function(e) {
+      const password = e.target.value;
+      const strengthMeter = document.getElementById('strength-meter');
+      let strength = 0;
+      
+      // Vérification de la longueur
+      if (password.length >= 8) strength += 1;
+      if (password.length >= 12) strength += 1;
+      
+      // Vérification des caractères spéciaux
+      if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) strength += 1;
+      
+      // Vérification des chiffres
+      if (/\d/.test(password)) strength += 1;
+      
+      // Vérification des majuscules/minuscules
+      if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength += 1;
+      
+      // Mise à jour de la barre de force
+      switch(strength) {
+        case 0:
+        case 1:
+          strengthMeter.style.width = '25%';
+          strengthMeter.style.background = 'var(--danger)';
+          break;
+        case 2:
+          strengthMeter.style.width = '50%';
+          strengthMeter.style.background = '#ff9f1c';
+          break;
+        case 3:
+          strengthMeter.style.width = '75%';
+          strengthMeter.style.background = '#2ec4b6';
+          break;
+        case 4:
+        case 5:
+          strengthMeter.style.width = '100%';
+          strengthMeter.style.background = 'var(--success)';
+          break;
+      }
+    });
+
+    window.registerUser = async function() {
       const email = document.getElementById('register-email').value;
       const password = document.getElementById('register-password').value;
-
-      createUserWithEmailAndPassword(auth, email, password)
-        .then(() => {
-          alert('Compte créé avec succès !');
+      const confirmPassword = document.getElementById('register-confirm').value;
+      
+      // Validation des champs
+      if (!email || !password || !confirmPassword) {
+        showMessage('Veuillez remplir tous les champs', 'error');
+        return;
+      }
+      
+      if (password !== confirmPassword) {
+        showMessage('Les mots de passe ne correspondent pas', 'error');
+        return;
+      }
+      
+      if (password.length < 8) {
+        showMessage('Le mot de passe doit contenir au moins 8 caractères', 'error');
+        return;
+      }
+      
+      const btn = document.querySelector('button');
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Création du compte...';
+      btn.disabled = true;
+      
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        showMessage('Compte créé avec succès ! Redirection en cours...', 'success');
+        
+        // Simulation d'un délai pour la redirection
+        setTimeout(() => {
           window.location.href = 'index.html';
-        })
-        .catch(error => {
-          alert('Erreur : ' + error.message);
-        });
+        }, 1500);
+      } catch (error) {
+        btn.innerHTML = '<i class="fas fa-user-plus"></i> Créer un compte';
+        btn.disabled = false;
+        
+        let errorMessage = "Erreur lors de la création du compte";
+        switch(error.code) {
+          case 'auth/email-already-in-use':
+            errorMessage = "Cet email est déjà utilisé";
+            break;
+          case 'auth/invalid-email':
+            errorMessage = "Email invalide";
+            break;
+          case 'auth/weak-password':
+            errorMessage = "Le mot de passe est trop faible";
+            break;
+          case 'auth/operation-not-allowed':
+            errorMessage = "Opération non autorisée";
+            break;
+          default:
+            errorMessage = error.message;
+        }
+        
+        showMessage(errorMessage, 'error');
+      }
     }
+    
+    function showMessage(message, type) {
+      const container = document.getElementById('message-container');
+      container.innerHTML = `
+        <div class="message ${type}">
+          <i class="fas ${type === 'error' ? 'fa-exclamation-circle' : 'fa-check-circle'}"></i>
+          ${message}
+        </div>
+      `;
+      
+      // Suppression automatique du message après 5 secondes
+      if (type === 'error') {
+        setTimeout(() => {
+          container.innerHTML = '';
+        }, 5000);
+      }
+    }
+    
+    // Animation au focus
+    document.querySelectorAll('input').forEach(input => {
+      input.addEventListener('focus', function() {
+        this.parentNode.style.transform = 'scale(1.02)';
+      });
+      
+      input.addEventListener('blur', function() {
+        this.parentNode.style.transform = 'scale(1)';
+      });
+    });
   </script>
 </body>
-</html>
+  </html>
