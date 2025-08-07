@@ -271,7 +271,12 @@
       
       <div class="input-group animate__animated animate__fadeIn animate__delay-1s">
         <i class="fas fa-envelope"></i>
-        <input type="email" id="login-email" placeholder="Adresse email" class="animate-input">
+        <form id="signupForm">
+  <input type="text" name="name" placeholder="Nom complet" required>
+  <input type="email" name="email" placeholder="Email" required>
+  <input type="password" name="password" placeholder="Mot de passe" required>
+  <button type="submit">S'inscrire</button>
+        </form>
       </div>
       
       <div class="input-group animate__animated animate__fadeIn animate__delay-2s">
@@ -408,6 +413,47 @@
         input.style.animationDelay = `${index * 0.1}s`;
       });
     });
+  </script>
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword, updateProfile, sendEmailVerification } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAfaaMyk4_CjF9SwJ4D0o-r0A5jENFJxOc",
+    authDomain: "blossomverse-lgajk.firebaseapp.com",
+    projectId: "blossomverse-lgajk",
+    storageBucket: "blossomverse-lgajk.appspot.com",
+    messagingSenderId: "588813220309",
+    appId: "1:588813220309:web:ea1934d655e1d2397ce55c"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const form = document.getElementById("signupForm");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const email = form.email.value;
+    const password = form.password.value;
+    const name = form.name.value;
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Mise à jour du nom
+        updateProfile(auth.currentUser, {
+          displayName: name
+        });
+
+        // Envoi de l’e-mail de vérification
+        sendEmailVerification(auth.currentUser).then(() => {
+          alert("✅ Compte créé ! Vérifiez votre email.");
+          window.location.href = "login.html";
+        });
+      })
+      .catch((error) => {
+        alert("❌ Erreur : " + error.message);
+      });
+  });
   </script>
 </body>
   </html>
