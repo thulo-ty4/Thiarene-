@@ -4,155 +4,337 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Publier une annonce - Thiarene+</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: #f4f4f4;
-      padding: 20px;
-      color: #333;
+    :root {
+      --primary: #6c5ce7;
+      --secondary: #a29bfe;
+      --dark: #2d3436;
+      --light: #f5f6fa;
+      --success: #00b894;
+      --danger: #d63031;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
     }
-    form {
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-      margin: 0 auto 30px;
-      max-width: 600px;
-    }
-    input, textarea, button, select {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 15px;
-      border-radius: 8px;
-      border: 1px solid #ddd;
-      font-size: 16px;
+    
+    * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
     }
-    button {
-      background: #2A5CAA;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      border: none;
-    }
-    button:hover {
-      background: #1b3f7a;
-      transform: translateY(-2px);
-    }
-    .annonce {
-      background: #fff;
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
       padding: 20px;
-      margin: 20px auto;
-      border-radius: 12px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-      max-width: 600px;
+      max-width: 1200px;
+      margin: 0 auto;
     }
-    .annonce h3 {
-      margin: 0 0 10px;
-      color: #2c3e50;
-      font-size: 1.3em;
+    
+    h1, h2 {
+      color: var(--primary);
+      margin: 20px 0;
+      text-align: center;
+      animation: fadeIn 0.5s ease;
     }
-    .annonce small {
-      color: #777;
-      font-size: 0.9em;
+    
+    h1 {
+      font-size: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
     }
-    .annonce img, .annonce video {
-      max-width: 100%;
+    
+    h2 {
+      font-size: 2rem;
+      border-bottom: 2px solid var(--secondary);
+      padding-bottom: 10px;
+      margin-top: 40px;
+    }
+    
+    #formAnnonce {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: var(--shadow);
+      margin: 30px auto;
+      max-width: 800px;
+      animation: slideUp 0.5s ease;
+      transition: var(--transition);
+    }
+    
+    #formAnnonce:hover {
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      transform: translateY(-5px);
+    }
+    
+    input, textarea {
+      width: 100%;
+      padding: 15px;
+      margin: 10px 0;
+      border: 2px solid #ddd;
       border-radius: 8px;
-      margin-top: 15px;
-      max-height: 300px;
-      object-fit: cover;
+      font-size: 16px;
+      transition: var(--transition);
+      font-family: 'Poppins', sans-serif;
     }
+    
+    input:focus, textarea:focus {
+      border-color: var(--primary);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+    }
+    
+    textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+    
     .file-input-container {
-      margin-bottom: 15px;
+      margin: 20px 0;
     }
+    
     .file-input-label {
       display: block;
-      padding: 12px;
-      background: #f8f8f8;
-      border: 1px dashed #ccc;
-      border-radius: 8px;
+      padding: 15px;
+      background-color: var(--secondary);
+      color: white;
       text-align: center;
+      border-radius: 8px;
       cursor: pointer;
-      transition: all 0.3s;
+      transition: var(--transition);
+      font-weight: 500;
+      font-size: 16px;
     }
+    
     .file-input-label:hover {
-      background: #eef;
-      border-color: #2A5CAA;
+      background-color: var(--primary);
+      transform: translateY(-2px);
     }
+    
     .preview-container {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 15px;
+      gap: 15px;
+      margin: 20px 0;
     }
+    
     .preview-item {
       position: relative;
-      width: 100px;
-      height: 100px;
+      width: 150px;
+      height: 150px;
       border-radius: 8px;
       overflow: hidden;
+      box-shadow: var(--shadow);
+      animation: fadeIn 0.5s ease;
     }
+    
     .preview-item img, .preview-item video {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
+    
     .remove-btn {
       position: absolute;
       top: 5px;
       right: 5px;
-      background: rgba(0,0,0,0.5);
+      width: 25px;
+      height: 25px;
+      background-color: var(--danger);
       color: white;
       border: none;
       border-radius: 50%;
-      width: 24px;
-      height: 24px;
-      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
+      font-weight: bold;
+      transition: var(--transition);
     }
-    h1, h2 {
-      text-align: center;
-      color: #2A5CAA;
+    
+    .remove-btn:hover {
+      transform: scale(1.1);
     }
-    h1 {
-      margin-bottom: 30px;
+    
+    button[type="submit"] {
+      width: 100%;
+      padding: 15px;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      margin-top: 20px;
     }
-    h2 {
-      margin: 40px 0 20px;
+    
+    button[type="submit"]:hover {
+      background-color: #5649c0;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3);
+    }
+    
+    button[type="submit"]:disabled {
+      background-color: #b2b2b2;
+      transform: none;
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+    
+    #liste-annonces {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 25px;
+      margin: 40px 0;
+    }
+    
+    .annonce {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      animation: fadeIn 0.5s ease;
+    }
+    
+    .annonce:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .annonce h3 {
+      color: var(--primary);
+      margin-bottom: 10px;
+      font-size: 1.3rem;
+    }
+    
+    .annonce p {
+      margin-bottom: 15px;
+      color: #555;
+    }
+    
+    .annonce img, .annonce video {
+      width: 100%;
+      max-height: 300px;
+      object-fit: contain;
+      border-radius: 8px;
+      margin: 10px 0;
+      background: #f0f0f0;
+    }
+    
+    .annonce video {
+      background: #000;
+    }
+    
+    .annonce small {
+      display: block;
+      color: #888;
+      font-size: 0.9rem;
+      margin-top: 15px;
+    }
+    
+    .annonce-actions {
+      display: flex;
+      gap: 15px;
+      margin-top: 15px;
+    }
+    
+    .annonce-btn {
+      padding: 8px 15px;
+      border: none;
+      border-radius: 20px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .like-btn {
+      background-color: #ffeaa7;
+      color: #e17055;
+    }
+    
+    .like-btn:hover {
+      background-color: #fab1a0;
+      color: white;
+    }
+    
+    .view-btn {
+      background-color: #dfe6e9;
+      color: #636e72;
+    }
+    
+    .view-btn:hover {
+      background-color: #b2bec3;
+      color: white;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes slideUp {
+      from { 
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to { 
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+      
+      h2 {
+        font-size: 1.5rem;
+      }
+      
+      #formAnnonce {
+        padding: 20px;
+      }
+      
+      #liste-annonces {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
-
   <h1>📢 Publier une annonce</h1>
-
   <form id="formAnnonce">
     <input type="text" id="nom" placeholder="Votre nom" required>
     <input type="text" id="type" placeholder="Type d'annonce (vente, fête, info...)" required>
     <textarea id="message" rows="5" placeholder="Écrivez votre annonce ici..." required></textarea>
-    
     <div class="file-input-container">
       <label for="mediaFiles" class="file-input-label">
         📷 Cliquez pour ajouter des photos/vidéos (max 5)
       </label>
       <input type="file" id="mediaFiles" multiple accept="image/*,video/*" style="display: none;">
     </div>
-    
     <div class="preview-container" id="previewContainer"></div>
-    
     <button type="submit" id="submitBtn">Publier l'annonce</button>
   </form>
 
   <h2>📰 Annonces récentes</h2>
   <div id="liste-annonces"></div>
 
-  <!-- Firebase SDKs -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-    import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
-    import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-storage.js";
+    import { getDatabase, ref, push, onChildAdded, update } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyAfaaMyk4_CjF9SwJ4D0o-r0A5jENFJxOc",
@@ -166,127 +348,188 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
-    const storage = getStorage(app);
+
+    const imagekitUploadEndpoint = "https://upload.imagekit.io/api/v1/files/upload";
+    const imagekitPublicKey = "public_c7bSqEq2gFNhSb8darpultjwykU=";
 
     const form = document.getElementById('formAnnonce');
     const liste = document.getElementById('liste-annonces');
     const mediaInput = document.getElementById('mediaFiles');
     const previewContainer = document.getElementById('previewContainer');
     const submitBtn = document.getElementById('submitBtn');
-
     let selectedFiles = [];
 
-    // Gestion de la sélection de fichiers
     mediaInput.addEventListener('change', (e) => {
       previewContainer.innerHTML = '';
       selectedFiles = [];
+      const files = Array.from(e.target.files).slice(0, 5);
       
-      const files = Array.from(e.target.files).slice(0, 5); // Limite à 5 fichiers
-      
-      files.forEach((file, index) => {
-        selectedFiles.push(file);
-        
-        const previewItem = document.createElement('div');
-        previewItem.className = 'preview-item';
-        
-        if (file.type.startsWith('image/')) {
-          const img = document.createElement('img');
-          img.src = URL.createObjectURL(file);
-          previewItem.appendChild(img);
-        } else if (file.type.startsWith('video/')) {
-          const video = document.createElement('video');
-          video.src = URL.createObjectURL(file);
-          video.controls = true;
-          previewItem.appendChild(video);
-        }
-        
-        const removeBtn = document.createElement('button');
-        removeBtn.className = 'remove-btn';
-        removeBtn.innerHTML = '×';
-        removeBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          selectedFiles.splice(index, 1);
-          previewItem.remove();
+      if (files.length > 0) {
+        previewContainer.style.display = 'flex';
+        files.forEach((file, index) => {
+          selectedFiles.push(file);
+          const previewItem = document.createElement('div');
+          previewItem.className = 'preview-item';
+          
+          const mediaElement = file.type.startsWith('image/') ? 
+            document.createElement('img') : 
+            document.createElement('video');
+            
+          mediaElement.src = URL.createObjectURL(file);
+          if (file.type.startsWith('video/')) {
+            mediaElement.controls = true;
+            mediaElement.preload = 'metadata';
+          }
+          
+          previewItem.appendChild(mediaElement);
+          
+          const removeBtn = document.createElement('button');
+          removeBtn.className = 'remove-btn';
+          removeBtn.innerHTML = '×';
+          removeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            selectedFiles.splice(index, 1);
+            previewItem.remove();
+            if (selectedFiles.length === 0) {
+              previewContainer.style.display = 'none';
+            }
+          });
+          
+          previewItem.appendChild(removeBtn);
+          previewContainer.appendChild(previewItem);
         });
-        
-        previewItem.appendChild(removeBtn);
-        previewContainer.appendChild(previewItem);
-      });
+      } else {
+        previewContainer.style.display = 'none';
+      }
     });
 
-    // Soumission du formulaire
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       submitBtn.disabled = true;
       submitBtn.textContent = 'Publication en cours...';
+      submitBtn.style.backgroundColor = '#b2b2b2';
 
       try {
         const nom = document.getElementById('nom').value;
         const type = document.getElementById('type').value;
         const message = document.getElementById('message').value;
-        
-        // Téléchargement des médias
         const mediaUrls = [];
-        
-        for (const file of selectedFiles) {
-          const fileRef = storageRef(storage, `annonces/${Date.now()}_${file.name}`);
-          await uploadBytes(fileRef, file);
-          const url = await getDownloadURL(fileRef);
-          mediaUrls.push({
-            url,
-            type: file.type.startsWith('video/') ? 'video' : 'image'
-          });
+
+        // Upload des médias si présents
+        if (selectedFiles.length > 0) {
+          for (const file of selectedFiles) {
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("publicKey", imagekitPublicKey);
+            formData.append("fileName", `${Date.now()}_${file.name}`);
+            formData.append("useUniqueFileName", true);
+
+            const response = await fetch(imagekitUploadEndpoint, {
+              method: "POST",
+              body: formData
+            });
+
+            if (!response.ok) throw new Error("Échec de l'upload du média");
+            
+            const data = await response.json();
+            mediaUrls.push({
+              url: data.url,
+              type: file.type.startsWith('video/') ? 'video' : 'image'
+            });
+          }
         }
-        
-        // Enregistrement dans la base de données
+
         const annonce = {
           nom,
           type,
           message,
-          media: mediaUrls,
-          date: new Date().toISOString()
+          media: mediaUrls.length > 0 ? mediaUrls : null,
+          date: new Date().toISOString(),
+          likes: 0,
+          vues: 0,
+          timestamp: Date.now()
         };
 
         await push(ref(db, 'annonces'), annonce);
         form.reset();
         previewContainer.innerHTML = '';
+        previewContainer.style.display = 'none';
         selectedFiles = [];
-        alert("✅ Annonce publiée avec succès !");
+        
+        // Animation de succès
+        submitBtn.textContent = '✅ Publié !';
+        setTimeout(() => {
+          submitBtn.textContent = 'Publier l\'annonce';
+          submitBtn.style.backgroundColor = 'var(--primary)';
+        }, 2000);
       } catch (error) {
-        console.error("Erreur lors de la publication:", error);
-        alert("❌ Une erreur est survenue lors de la publication");
+        console.error("Erreur:", error);
+        submitBtn.textContent = '❌ Erreur - Réessayer';
+        setTimeout(() => {
+          submitBtn.textContent = 'Publier l\'annonce';
+          submitBtn.style.backgroundColor = 'var(--primary)';
+        }, 2000);
       } finally {
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Publier l\'annonce';
       }
     });
 
-    // Affichage dynamique des annonces
     onChildAdded(ref(db, 'annonces'), (data) => {
       const annonce = data.val();
       const div = document.createElement('div');
       div.className = 'annonce';
       
       let mediaHTML = '';
-      if (annonce.media && annonce.media.length > 0) {
+      if (annonce.media) {
+        mediaHTML = '<div class="annonce-media">';
         annonce.media.forEach(item => {
-          if (item.type === 'image') {
-            mediaHTML += `<img src="${item.url}" alt="Média annonce">`;
-          } else if (item.type === 'video') {
-            mediaHTML += `<video controls><source src="${item.url}" type="video/mp4">Votre navigateur ne supporte pas les vidéos.</video>`;
-          }
+          mediaHTML += item.type === 'image'
+            ? `<img src="${item.url}" alt="Media ${annonce.nom}" loading="lazy">`
+            : `<video controls preload="metadata"><source src="${item.url}" type="video/mp4"></video>`;
         });
+        mediaHTML += '</div>';
       }
       
       div.innerHTML = `
         <h3>${annonce.type} – ${annonce.nom}</h3>
         <p>${annonce.message}</p>
         ${mediaHTML}
-        <small>🕒 ${new Date(annonce.date).toLocaleString()}</small>
+        <div class="annonce-actions">
+          <button class="annonce-btn like-btn" data-id="${data.key}">
+            👍 ${annonce.likes || 0}
+          </button>
+          <button class="annonce-btn view-btn">
+            👁️ ${annonce.vues || 0}
+          </button>
+        </div>
+        <small>🕒 ${new Date(annonce.date).toLocaleString('fr-FR', {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        })}</small>
       `;
       
       liste.prepend(div);
+      
+      // Ajout des écouteurs d'événements pour les boutons
+      const likeBtn = div.querySelector('.like-btn');
+      likeBtn.addEventListener('click', () => {
+        const newLikes = (annonce.likes || 0) + 1;
+        update(ref(db, `annonces/${data.key}`), { likes: newLikes });
+      });
     });
+
+    // Animation au chargement
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        document.body.style.opacity = '1';
+      }, 100);
+    });
+    
+    document.body.style.opacity = '0';
+    document.body.style.transition = 'opacity 0.5s ease';
   </script>
 </body>
   </html>
