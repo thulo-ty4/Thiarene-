@@ -1,62 +1,306 @@
-<!-- login.html -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Connexion - Thiarene+</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    :root {
+      --primary: #4361ee;
+      --primary-dark: #3a56d4;
+      --secondary: #3f37c9;
+      --text: #2b2d42;
+      --light: #f8f9fa;
+      --gray: #adb5bd;
+      --danger: #ef233c;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
     body {
       font-family: 'Poppins', sans-serif;
-      background: #f0f2f5;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
+      padding: 20px;
+      color: var(--text);
     }
+    
+    .auth-container {
+      perspective: 1000px;
+      width: 100%;
+      max-width: 420px;
+    }
+    
     .auth-box {
       background: white;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
       width: 100%;
-      max-width: 400px;
+      transform-style: preserve-3d;
+      transition: all 0.5s ease;
+      position: relative;
+      overflow: hidden;
     }
-    h2 {
+    
+    .auth-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+    }
+    
+    .auth-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    }
+    
+    .logo {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
-    input, button {
+    
+    .logo h2 {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--primary);
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+    
+    .input-group {
+      position: relative;
+      margin-bottom: 25px;
+    }
+    
+    .input-group i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray);
+      transition: all 0.3s;
+    }
+    
+    input {
       width: 100%;
-      padding: 12px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
+      padding: 15px 15px 15px 45px;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
       font-size: 16px;
+      transition: all 0.3s;
+      background-color: #f8f9fa;
     }
+    
+    input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+      outline: none;
+      background-color: white;
+    }
+    
+    input:focus + i {
+      color: var(--primary);
+    }
+    
     button {
-      background: #2A5CAA;
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
       color: white;
       font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
       cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 10px;
+      box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
     }
+    
     button:hover {
-      background: #1b3f7a;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+      background: linear-gradient(90deg, var(--primary-dark), var(--secondary));
     }
+    
+    button:active {
+      transform: translateY(0);
+    }
+    
     .link {
       text-align: center;
+      margin-top: 25px;
+      font-size: 14px;
+    }
+    
+    .link a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+      position: relative;
+    }
+    
+    .link a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s;
+    }
+    
+    .link a:hover::after {
+      width: 100%;
+    }
+    
+    .animate-input {
+      animation: fadeInUp 0.5s ease-out;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .social-login {
+      margin: 25px 0;
+      text-align: center;
+    }
+    
+    .social-login p {
+      position: relative;
+      margin-bottom: 20px;
+      color: var(--gray);
+    }
+    
+    .social-login p::before,
+    .social-login p::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 30%;
+      height: 1px;
+      background: #e9ecef;
+    }
+    
+    .social-login p::before {
+      left: 0;
+    }
+    
+    .social-login p::after {
+      right: 0;
+    }
+    
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+    
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .social-icon:hover {
+      transform: translateY(-3px);
+    }
+    
+    .facebook {
+      background: #3b5998;
+    }
+    
+    .google {
+      background: #db4437;
+    }
+    
+    .twitter {
+      background: #1da1f2;
+    }
+    
+    /* Responsive */
+    @media (max-width: 480px) {
+      .auth-box {
+        padding: 30px 20px;
+      }
+      
+      .logo h2 {
+        font-size: 24px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="auth-box">
-    <h2>Connexion</h2>
-    <input type="email" id="login-email" placeholder="Email">
-    <input type="password" id="login-password" placeholder="Mot de passe">
-    <button onclick="loginUser()">Se connecter</button>
-    <div class="link">
-      <a href="register.html">Pas encore de compte ? Créer un compte</a>
+  <div class="auth-container">
+    <div class="auth-box animate__animated animate__fadeIn">
+      <div class="logo">
+        <h2 class="animate__animated animate__fadeInDown">Thiarene+</h2>
+      </div>
+      
+      <div class="input-group animate__animated animate__fadeIn animate__delay-1s">
+        <i class="fas fa-envelope"></i>
+        <input type="email" id="login-email" placeholder="Adresse email" class="animate-input">
+      </div>
+      
+      <div class="input-group animate__animated animate__fadeIn animate__delay-2s">
+        <i class="fas fa-lock"></i>
+        <input type="password" id="login-password" placeholder="Mot de passe" class="animate-input">
+      </div>
+      
+      <button onclick="loginUser()" class="animate__animated animate__fadeIn animate__delay-3s">
+        <i class="fas fa-sign-in-alt"></i> Se connecter
+      </button>
+      
+      <div class="social-login animate__animated animate__fadeIn animate__delay-4s">
+        <p>Ou connectez-vous avec</p>
+        <div class="social-icons">
+          <div class="social-icon facebook">
+            <i class="fab fa-facebook-f"></i>
+          </div>
+          <div class="social-icon google">
+            <i class="fab fa-google"></i>
+          </div>
+          <div class="social-icon twitter">
+            <i class="fab fa-twitter"></i>
+          </div>
+        </div>
+      </div>
+      
+      <div class="link animate__animated animate__fadeIn animate__delay-5s">
+        <a href="register.html">Pas encore de compte ? Créer un compte</a>
+      </div>
     </div>
   </div>
 
@@ -79,16 +323,91 @@
     window.loginUser = function () {
       const email = document.getElementById('login-email').value;
       const password = document.getElementById('login-password').value;
+      
+      if (!email || !password) {
+        showError('Veuillez remplir tous les champs');
+        return;
+      }
+
+      const btn = document.querySelector('button');
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connexion en cours...';
+      btn.disabled = true;
 
       signInWithEmailAndPassword(auth, email, password)
         .then(() => {
-          alert('Connexion réussie !');
-          window.location.href = 'index.html';
+          showSuccess('Connexion réussie ! Redirection en cours...');
+          setTimeout(() => {
+            window.location.href = 'index.html';
+          }, 1500);
         })
         .catch(error => {
-          alert('Erreur : ' + error.message);
+          btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Se connecter';
+          btn.disabled = false;
+          
+          let errorMessage = 'Erreur de connexion';
+          switch(error.code) {
+            case 'auth/invalid-email':
+              errorMessage = 'Email invalide';
+              break;
+            case 'auth/user-disabled':
+              errorMessage = 'Compte désactivé';
+              break;
+            case 'auth/user-not-found':
+              errorMessage = 'Utilisateur non trouvé';
+              break;
+            case 'auth/wrong-password':
+              errorMessage = 'Mot de passe incorrect';
+              break;
+            default:
+              errorMessage = error.message;
+          }
+          showError(errorMessage);
         });
     }
+    
+    function showError(message) {
+      const errorDiv = document.createElement('div');
+      errorDiv.className = 'error-message animate__animated animate__fadeIn';
+      errorDiv.style.color = 'var(--danger)';
+      errorDiv.style.marginBottom = '15px';
+      errorDiv.style.textAlign = 'center';
+      errorDiv.style.fontWeight = '500';
+      errorDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+      
+      const existingError = document.querySelector('.error-message');
+      if (existingError) {
+        existingError.remove();
+      }
+      
+      const button = document.querySelector('button');
+      button.parentNode.insertBefore(errorDiv, button);
+    }
+    
+    function showSuccess(message) {
+      const successDiv = document.createElement('div');
+      successDiv.className = 'success-message animate__animated animate__fadeIn';
+      successDiv.style.color = '#2ecc71';
+      successDiv.style.marginBottom = '15px';
+      successDiv.style.textAlign = 'center';
+      successDiv.style.fontWeight = '500';
+      successDiv.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+      
+      const existingError = document.querySelector('.error-message');
+      if (existingError) {
+        existingError.remove();
+      }
+      
+      const button = document.querySelector('button');
+      button.parentNode.insertBefore(successDiv, button);
+    }
+    
+    // Animation au chargement
+    document.addEventListener('DOMContentLoaded', () => {
+      const inputs = document.querySelectorAll('.animate-input');
+      inputs.forEach((input, index) => {
+        input.style.animationDelay = `${index * 0.1}s`;
+      });
+    });
   </script>
 </body>
-</html>
+  </html>
