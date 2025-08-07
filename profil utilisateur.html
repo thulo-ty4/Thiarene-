@@ -139,6 +139,61 @@
         location.reload();
       }
     }
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
+
+// Après avoir créé le compte :
+set(ref(db, 'utilisateurs/' + user.uid), {
+  nom: name,
+  email: email,
+  createdAt: Date.now()
+});
+    import { 
+  getAuth, 
+  onAuthStateChanged, 
+  updateProfile 
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { 
+  getDatabase, 
+  ref, 
+  get 
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
+
+// Initialisation Firebase (tu l’as déjà, garde ton propre config)
+const auth = getAuth();
+const db = getDatabase();
+
+const userNameElement = document.getElementById('userName');
+const profilePhotoElement = document.getElementById('profilePhoto');
+
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    let displayName = user.displayName;
+
+    // 🔍 Si pas de displayName, aller chercher dans la base de données
+    if (!displayName) {
+      const userRef = ref(db, 'utilisateurs/' + user.uid);
+      const snapshot = await get(userRef);
+      if (snapshot.exists()) {
+        displayName = snapshot.val().nom || user.email;
+      } else {
+        displayName = user.email;
+      }
+    }
+
+    userNameElement.textContent = displayName;
+
+    // Afficher la photo ou une par défaut
+    profilePhotoElement.src = user.photoURL || "default-profile.jpg";
+
+    // ✅ Tu peux aussi vérifier si l’email est vérifié
+    if (!user.emailVerified) {
+      alert("⚠️ Vérifie ton adresse email !");
+    }
+
+  } else {
+    window.location.href = 'login.html';
+  }
+});
   </script>
 </body>
           </html>
