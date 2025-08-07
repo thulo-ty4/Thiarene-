@@ -526,6 +526,7 @@
   <a href="index.html">Accueil</a>
   <a href="annonces.html">Annonces</a>
   <a href="profil utilisateur.html">Mon compte</a>
+  <button id="logoutBtn"> Déconnexion</button>
 
 </div>
     </div>
@@ -860,5 +861,34 @@ function toggleMenu() {
   menu.classList.toggle('show');
 }
 </script>
+    <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+  import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAfaaMyk4_CjF9SwJ4D0o-r0A5jENFJxOc",
+    authDomain: "blossomverse-lgajk.firebaseapp.com",
+    projectId: "blossomverse-lgajk",
+    storageBucket: "blossomverse-lgajk.appspot.com",
+    messagingSenderId: "588813220309",
+    appId: "1:588813220309:web:ea1934d655e1d2397ce55c"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      signOut(auth).then(() => {
+        alert("✅ Vous êtes déconnecté !");
+        window.location.href = "login.html"; // Redirige vers la page de connexion
+      }).catch((error) => {
+        console.error("❌ Erreur de déconnexion :", error);
+      });
+    });
+  }
+    </script>
 </body>
 </html>
