@@ -271,11 +271,13 @@
       
       <div class="input-group animate__animated animate__fadeIn animate__delay-1s">
         <i class="fas fa-envelope"></i>
-        <form id="signupForm">
-  <input type="text" name="name" placeholder="Nom complet" required>
-  <input type="email" name="email" placeholder="Email" required>
-  <input type="password" name="password" placeholder="Mot de passe" required>
+        <form id="loginForm">
+  <input type="email" id="login-email" placeholder="Email" required>
+  <input type="password" id="login-password" placeholder="Mot de passe" required>
 
+  <button type="submit">
+    <i class="fas fa-sign-in-alt"></i> Se connecter
+  </button>
         </form>
       </div>
         
@@ -411,7 +413,7 @@
   </script>
   <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-  import { getAuth, createUserWithEmailAndPassword, updateProfile, sendEmailVerification } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyAfaaMyk4_CjF9SwJ4D0o-r0A5jENFJxOc",
@@ -425,27 +427,19 @@
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
 
-  const form = document.getElementById("signupForm");
-  form.addEventListener("submit", (e) => {
+  const form = document.getElementById('loginForm');
+
+  form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const email = form.email.value;
-    const password = form.password.value;
-    const name = form.name.value;
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
 
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Mise à jour du nom
-        updateProfile(auth.currentUser, {
-          displayName: name
-        });
-
-        // Envoi de l’e-mail de vérification
-        sendEmailVerification(auth.currentUser).then(() => {
-          alert("✅ Compte créé ! Vérifiez votre email.");
-          window.location.href = "login.html";
-        });
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        alert("✅ Connexion réussie !");
+        window.location.href = "index.html"; // Redirection vers accueil
       })
-      .catch((error) => {
+      .catch(error => {
         alert("❌ Erreur : " + error.message);
       });
   });
