@@ -72,34 +72,36 @@
   <footer>
     <p>&copy; 2025 Thiarene+ - Tous droits réservés</p>
   </footer>
+<script>
+  const apiKey = "f098c3aa54a74902a7b5a6885f88f056";
+  const url = `https://newsapi.org/v2/top-headlines?language=fr&pageSize=12&apiKey=${apiKey}`;
+  const proxy = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
 
-  <script>
-    const apiKey = "f098c3aa54a74902a7b5a6885f88f056";
-    const url = `https://newsapi.org/v2/top-headlines?language=fr&pageSize=12&apiKey=${apiKey}`;
+  fetch(proxy)
+    .then(response => response.json())
+    .then(data => {
+      const articles = JSON.parse(data.contents).articles;
+      const container = document.getElementById("news-container");
+      container.innerHTML = "";
 
-    fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        const container = document.getElementById("news-container");
-        container.innerHTML = "";
-
-        data.articles.forEach(article => {
-          container.innerHTML += `
-            <article class="news-card">
-              <img src="${article.urlToImage || 'default.jpg'}" alt="">
-              <div class="news-content">
-                <h2>${article.title}</h2>
-                <p>${article.description || 'Pas de description disponible.'}</p>
-                <a href="${article.url}" target="_blank">Lire plus</a>
-              </div>
-            </article>
-          `;
-        });
-      })
-      .catch(error => {
-        document.getElementById("news-container").innerHTML = "<p>❌ Impossible de charger les actualités.</p>";
-        console.error(error);
+      articles.forEach(article => {
+        container.innerHTML += `
+          <article class="news-card">
+            <img src="${article.urlToImage || 'default.jpg'}" alt="">
+            <div class="news-content">
+              <h2>${article.title}</h2>
+              <p>${article.description || 'Pas de description disponible.'}</p>
+              <a href="${article.url}" target="_blank">Lire plus</a>
+            </div>
+          </article>
+        `;
       });
-  </script>
+    })
+    .catch(error => {
+      document.getElementById("news-container").innerHTML = "<p>❌ Impossible de charger les actualités.</p>";
+      console.error(error);
+    });
+</script>
+  
 </body>
 </html>
