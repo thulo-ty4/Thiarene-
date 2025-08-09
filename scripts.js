@@ -40,20 +40,19 @@
     });
   }
 
-  // Toggle Read More Function (corrigée)
   function toggleReadMore(button) {
-    const card = button.closest('.news-card');
-    const text = card.querySelector('.news-text');
+  const newsText = button.closest('.news-content').querySelector('.news-text');
+  
+  // Toggle la classe qui étend ou réduit le texte
+  newsText.classList.toggle('expanded');
 
-    text.classList.toggle('expanded');
-
-    if (text.classList.contains('expanded')) {
-      button.innerHTML = '<i class="fas fa-book"></i> Lire moins';
-    } else {
-      button.innerHTML = '<i class="fas fa-book-open"></i> Lire plus';
-    }
+  // Change le texte du bouton
+  if (newsText.classList.contains('expanded')) {
+    button.innerHTML = '<i class="fas fa-book-open"></i> Lire moins';
+  } else {
+    button.innerHTML = '<i class="fas fa-book-open"></i> Lire plus';
   }
-
+          }
   // Toggle Like Function
   function toggleLike(button) {
     const icon = button.querySelector('i');
