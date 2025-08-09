@@ -169,6 +169,16 @@
 
       localStorage.setItem('lastVisit', now);
     });
+function toggleReadMore(button) {
+    const newsText = button.previousElementSibling; // le bloc de texte juste avant le bouton
+    newsText.classList.toggle("expanded");
+
+    if (newsText.classList.contains("expanded")) {
+        button.innerHTML = '<i class="fas fa-book-open"></i> Lire moins';
+    } else {
+        button.innerHTML = '<i class="fas fa-book-open"></i> Lire plus';
+    }
+  }
   </script>
     
 
