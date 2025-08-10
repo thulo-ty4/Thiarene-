@@ -21,6 +21,29 @@
     "description": "Portail officiel du village de Thiarène au Sénégal"
   }
   </script>
+  <script type="module">
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+
+  const firebaseConfig = {
+  apiKey: "AIzaSyAfaaMyk4_CjF9SwJ4D0o-r0A5jENFJxOc",
+  authDomain: "blossomverse-lgajk.firebaseapp.com",
+  databaseURL: "https://blossomverse-lgajk-default-rtdb.firebaseio.com",
+  projectId: "blossomverse-lgajk",
+  storageBucket: "blossomverse-lgajk.firebasestorage.app",
+  messagingSenderId: "588813220309",
+  appId: "1:588813220309:web:ea1934d655e1d2397ce55c"
+};
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "login.html"; // Redirige vers login si pas connecté
+    }
+  });
+  </script>
   
   <!-- CSS -->
   <link rel="stylesheet" href="style.css">
