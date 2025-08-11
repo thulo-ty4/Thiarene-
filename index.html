@@ -9,6 +9,12 @@
   <!-- Favicon & PWA -->
   <link rel="icon" href="logo192.png" type="image/png">
   <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1e73be">
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js');
+  }
+</script>
   <meta name="theme-color" content="#1a365d">
   
   <!-- Schema.org -->
