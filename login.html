@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Connexion</title>
-  <link rel="stylesheet" href="css/style.css"> <!-- Chemin vers ton CSS -->
-
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- Font Awesome pour les icônes -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
-
 <body>
   <div class="auth-container">
     <div class="auth-box animate__animated animate__fadeIn">
@@ -15,6 +15,7 @@
         <h2 class="animate__animated animate__fadeInDown">Thiarene+</h2>
       </div>
 
+      <!-- Formulaire de connexion Firebase -->
       <form id="loginForm" class="animate__animated animate__fadeIn animate__delay-1s">
         <div class="input-group">
           <i class="fas fa-envelope"></i>
@@ -30,18 +31,7 @@
           <i class="fas fa-sign-in-alt"></i> Se connecter
         </button>
       </form>
-<form id="myForm" action="/verify" method="POST">
-  <input type="text" name="username" placeholder="Nom d'utilisateur" required>
-  <input type="password" name="password" placeholder="Mot de passe" required>
 
-  <!-- reCAPTCHA -->
-  <div class="g-recaptcha" data-sitekey="6LcHF6MrAAAAAJeDUlPLcrpx82Eka3w0-ITWmLpo"></div>
-
-  <button type="submit">Envoyer</button>
-</form>
-
-<!-- Script reCAPTCHA -->
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
       <div class="social-login animate__animated animate__fadeIn animate__delay-4s">
         <p>Ou connectez-vous avec</p>
         <div class="social-icons">
@@ -65,7 +55,13 @@
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, FacebookAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+    import {
+      getAuth,
+      signInWithEmailAndPassword,
+      GoogleAuthProvider,
+      FacebookAuthProvider,
+      signInWithPopup
+    } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyAfaaMyk4_CjF9SwJ4D0o-r0A5jENFJxOc",
@@ -80,84 +76,75 @@
     const auth = getAuth(app);
 
     // Connexion Email/Password
-    const form = document.getElementById('loginForm');
-    form.addEventListener('submit', (e) => {
+    const form = document.getElementById("loginForm");
+    form.addEventListener("submit", (e) => {
       e.preventDefault();
-      const email = document.getElementById('login-email').value.trim();
-      const password = document.getElementById('login-password').value.trim();
+      const email = document.getElementById("login-email").value.trim();
+      const password = document.getElementById("login-password").value.trim();
 
       if (!email || !password) {
-        alert('Veuillez remplir tous les champs');
+        alert("Veuillez remplir tous les champs");
         return;
       }
 
-      const btn = form.querySelector('button');
+      const btn = form.querySelector("button");
       btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connexion en cours...';
       btn.disabled = true;
 
       signInWithEmailAndPassword(auth, email, password)
         .then(() => {
-          alert('✅ Connexion réussie ! Redirection en cours...');
-          window.location.href = 'index.html'; // adapte vers ta page d’accueil
+          alert("✅ Connexion réussie ! Redirection en cours...");
+          window.location.href = "index.html";
         })
-        .catch(error => {
+        .catch((error) => {
           btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Se connecter';
           btn.disabled = false;
-          let errorMessage = 'Erreur de connexion';
-          switch(error.code) {
-            case 'auth/invalid-email':
-              errorMessage = 'Email invalide';
+          let errorMessage = "Erreur de connexion";
+          switch (error.code) {
+            case "auth/invalid-email":
+              errorMessage = "Email invalide";
               break;
-            case 'auth/user-disabled':
-              errorMessage = 'Compte désactivé';
+            case "auth/user-disabled":
+              errorMessage = "Compte désactivé";
               break;
-            case 'auth/user-not-found':
-              errorMessage = 'Utilisateur non trouvé';
+            case "auth/user-not-found":
+              errorMessage = "Utilisateur non trouvé";
               break;
-            case 'auth/wrong-password':
-              errorMessage = 'Mot de passe incorrect';
+            case "auth/wrong-password":
+              errorMessage = "Mot de passe incorrect";
               break;
             default:
               errorMessage = error.message;
           }
-          alert('❌ ' + errorMessage);
+          alert("❌ " + errorMessage);
         });
     });
 
     // Connexion Google
     const googleProvider = new GoogleAuthProvider();
-    document.getElementById('googleSignIn').addEventListener('click', () => {
+    document.getElementById("googleSignIn").addEventListener("click", () => {
       signInWithPopup(auth, googleProvider)
-        .then((result) => {
-          alert('✅ Connexion Google réussie ! Redirection...');
-          window.location.href = 'index.html';
+        .then(() => {
+          alert("✅ Connexion Google réussie ! Redirection...");
+          window.location.href = "index.html";
         })
         .catch((error) => {
-          alert('❌ Erreur Google : ' + error.message);
+          alert("❌ Erreur Google : " + error.message);
         });
     });
 
     // Connexion Facebook
     const facebookProvider = new FacebookAuthProvider();
-    document.getElementById('facebookSignIn').addEventListener('click', () => {
+    document.getElementById("facebookSignIn").addEventListener("click", () => {
       signInWithPopup(auth, facebookProvider)
-        .then((result) => {
-          alert('✅ Connexion Facebook réussie ! Redirection...');
-          window.location.href = 'index.html';
+        .then(() => {
+          alert("✅ Connexion Facebook réussie ! Redirection...");
+          window.location.href = "index.html";
         })
         .catch((error) => {
-          alert('❌ Erreur Facebook : ' + error.message);
+          alert("❌ Erreur Facebook : " + error.message);
         });
     });
-    auth.signInWithEmailAndPassword(email, password)
-  .then((userCredential) => {
-    // Connexion réussie → redirige
-    window.location.href = "index.html";
-  })
-  .catch((error) => {
-    alert("Erreur : " + error.message);
-  });
-    import { app } from './firebase-config.js';
   </script>
 </body>
   </html>
