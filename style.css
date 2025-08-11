@@ -1,4 +1,5 @@
- :root {
+<style>
+:root {
       --primary: #1a365d;
       --primary-light: #2c5282;
       --secondary: #d69e2e;
@@ -1018,3 +1019,195 @@
     padding: 20px;
   }
  }
+/* style.css */
+
+/* Reset de base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #4c6ef5, #15aabf);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #333;
+}
+
+/* Conteneur principal */
+.auth-container {
+  background: #fff;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+  width: 360px;
+}
+
+/* Box */
+.auth-box {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* Logo et titre */
+.logo h2 {
+  font-weight: 700;
+  color: #4c6ef5;
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 2rem;
+  letter-spacing: 1px;
+}
+
+/* Formulaire */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Groupe input avec icône */
+.input-group {
+  position: relative;
+}
+
+.input-group i {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #a3a3a3;
+  font-size: 18px;
+  pointer-events: none;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+  width: 100%;
+  padding: 12px 15px 12px 40px;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="text"]:focus {
+  border-color: #4c6ef5;
+  outline: none;
+}
+
+/* Boutons */
+button {
+  background-color: #4c6ef5;
+  color: white;
+  padding: 12px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+button:hover:enabled {
+  background-color: #3955c0;
+}
+
+button:disabled {
+  background-color: #a3a3a3;
+  cursor: not-allowed;
+}
+
+/* Section des réseaux sociaux */
+.social-login {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 12px;
+}
+
+.social-icon {
+  background-color: #eee;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: #666;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: 18px;
+}
+
+.social-icon.google {
+  color: #db4437;
+  background-color: #fdecea;
+}
+
+.social-icon.google:hover {
+  background-color: #db4437;
+  color: white;
+}
+
+.social-icon.facebook {
+  color: #3b5998;
+  background-color: #e7f0fe;
+}
+
+.social-icon.facebook:hover {
+  background-color: #3b5998;
+  color: white;
+}
+
+.social-icon.twitter {
+  color: #1da1f2;
+  background-color: #e5f2fb;
+}
+
+.social-icon.twitter:hover {
+  background-color: #1da1f2;
+  color: white;
+}
+
+/* Lien pour s'inscrire */
+.link {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.link a {
+  text-decoration: none;
+  color: #4c6ef5;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.link a:hover {
+  color: #3955c0;
+}
+
+/* reCAPTCHA centré */
+.g-recaptcha {
+  margin: 10px auto;
+  display: block;
+ }
+</style>
