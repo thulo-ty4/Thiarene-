@@ -206,4 +206,16 @@
   onMessage(messaging, (payload) => {
     alert("🔔 Nouvelle annonce : " + payload.notification.title);
   });
+function toggleReadMore(button) {
+  const newsContent = button.closest('.news-content');
+  if (!newsContent) return;
+
+  const newsText = newsContent.querySelector('.news-text');
+  if (!newsText) return;
+
+  newsText.classList.toggle('expanded');
+  button.innerHTML = newsText.classList.contains('expanded') 
+    ? '<i class="fas fa-book-open"></i> Lire moins' 
+    : '<i class="fas fa-book-open"></i> Lire plus';
+  }
 </script>
