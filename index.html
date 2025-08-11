@@ -10,6 +10,30 @@
   <link rel="icon" href="logo192.png" type="image/png">
   <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#1e73be">
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAfaaMyk4_CjF9SwJ4D0o-r0A5jENFJxOc",
+    authDomain: "blossomverse-lgajk.firebaseapp.com",
+    projectId: "blossomverse-lgajk",
+    storageBucket: "blossomverse-lgajk.appspot.com",
+    messagingSenderId: "588813220309",
+    appId: "1:588813220309:web:ea1934d655e1d2397ce55c"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  onAuthStateChanged(auth, user => {
+    if (!user) {
+      // Pas connecté, redirige vers page connexion
+      window.location.href = 'login.html';  // ou 'connexion.html' selon ton nom de fichier
+    }
+    // Sinon l'utilisateur est connecté et peut rester sur la page
+  });
+  </script>
 <script>
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/service-worker.js');
