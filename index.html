@@ -6,41 +6,11 @@
   <title>Thiarene+ | Portail du Village</title>
   <meta name="description" content="Portail officiel du village de Thiarène - Actualités, histoire, culture et vie communautaire">
   <meta name="google-site-verification" content="Y3Dg0w4qQaNqzF66pTOVUrdQLLfiaMMEu5s9hYRKkoI">
-  
+
   <!-- Favicon & PWA -->
   <link rel="icon" href="logo192.png" type="image/png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#1a365d">
-
-  <!-- Firebase init - Une seule version -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyAfaaMyk4_CjF9SwJ4D0o-r0A5jENFJxOc",
-      authDomain: "blossomverse-lgajk.firebaseapp.com",
-      projectId: "blossomverse-lgajk",
-      storageBucket: "blossomverse-lgajk.appspot.com",
-      messagingSenderId: "588813220309",
-      appId: "1:588813220309:web:ea1934d655e1d2397ce55c"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    onAuthStateChanged(auth, user => {
-      if (!user) {
-        window.location.href = 'login.html';
-      }
-    });
-  </script>
-
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js');
-    }
-  </script>
 
   <!-- CSS -->
   <link rel="stylesheet" href="style.css">
@@ -56,7 +26,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
-<body>
+
   <!-- Hero Section -->
   <section class="hero" id="home">
     <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
@@ -88,9 +58,7 @@
         <li><a href="#actualites">Actualités</a></li>
         <li><a href="#histoire">Histoire</a></li>
         <li><a href="#geographie">Géographie</a></li>
-        <li><a href="annonces.html">Annonces</a></li>
-        <li><a href="profil-utilisateur.html">Mon compte</a></li>
-        <li><a href="annonces.html" class="nav-cta">Publier une annonce</a></li>
+      
       </ul>
     </div>
   </nav>
@@ -109,10 +77,7 @@
       <li><a href="#actualites"><i class="fas fa-newspaper"></i> Actualités</a></li>
       <li><a href="#histoire"><i class="fas fa-landmark"></i> Histoire</a></li>
       <li><a href="#geographie"><i class="fas fa-map-marked-alt"></i> Géographie</a></li>
-      <li><a href="annonces.html"><i class="fas fa-bullhorn"></i> Annonces</a></li>
-      <li><a href="profil-utilisateur.html"><i class="fas fa-user"></i> Mon compte</a></li>
-      <li><a href="annonces.html"><i class="fas fa-plus-circle"></i> Publier une annonce</a></li>
-    </ul>
+       </ul>
     
     <div class="side-menu-footer">
       <div class="social-links">
@@ -411,7 +376,7 @@
             <li><a href="#actualites"><i class="fas fa-chevron-right"></i> Actualités</a></li>
             <li><a href="#histoire"><i class="fas fa-chevron-right"></i> Histoire</a></li>
             <li><a href="#geographie"><i class="fas fa-chevron-right"></i> Géographie</a></li>
-            <li><a href="annonces.html"><i class="fas fa-chevron-right"></i> Annonces</a></li>
+            
           </ul>
         </div>
         
