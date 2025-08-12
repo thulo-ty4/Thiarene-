@@ -12,29 +12,4 @@
     <lastmod>2025-08-07</lastmod>
     <priority>0.90</priority>
   </url>
-
-  <url>
-    <loc>https://thiaren.netlify.app/annonces.html</loc>
-    <lastmod>2025-08-07</lastmod>
-    <priority>0.85</priority>
-  </url>
-
-  <url>
-    <loc>https://thiaren.netlify.app/login.html</loc>
-    <lastmod>2025-08-07</lastmod>
-    <priority>0.80</priority>
-  </url>
-
-  <url>
-    <loc>https://thiaren.netlify.app/register.html</loc>
-    <lastmod>2025-08-07</lastmod>
-    <priority>0.80</priority>
-  </url>
-
-  <url>
-    <loc>https://thiaren.netlify.app/profil%20utilisateur.html</loc>
-    <lastmod>2025-08-07</lastmod>
-    <priority>0.70</priority>
-  </url>
-
 </urlset>
