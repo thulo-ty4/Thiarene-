@@ -1,390 +1,248 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+  <!-- Métadonnées essentielles -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Thiarene+ | Portail du Village</title>
-  <meta name="description" content="Portail officiel du village de Thiarène - Actualités, histoire, culture et vie communautaire">
+  <meta name="description" content="Portail officiel du village de Thiarène - Actualités, histoire, culture et vie communautaire.">
   <meta name="google-site-verification" content="Y3Dg0w4qQaNqzF66pTOVUrdQLLfiaMMEu5s9hYRKkoI">
+
+  <!-- SEO & Accessibilité -->
+  <meta name="author" content="Thiarene+">
+  <meta name="robots" content="index, follow">
+
   <!-- Favicon & PWA -->
   <link rel="icon" href="logo192.png" type="image/png">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#1a365d">
-  <!-- CSS -->
+
+  <!-- CSS principal -->
   <link rel="stylesheet" href="style.css">
-  <!-- Fonts -->
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Animation Libraries -->
+
+  <!-- Librairies d’animation -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body>
-<!-- Hero Section -->
-<section class="hero" id="home">
-  <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
-    <div class="logo-container">
-      <img src="logo.png" alt="Logo Thiarene+" class="logo">
-      <h1 class="hero-title">Thiarene+</h1>
-      <p class="hero-subtitle">Découvrez la richesse culturelle et l'actualité du village de Thiarène</p>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero" id="home">
+    <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+      <div class="logo-container">
+        <img src="logo.png" alt="Logo Thiarene+" class="logo" width="120" height="120">
+        <h1 class="hero-title">Thiarene+</h1>
+        <p class="hero-subtitle">Découvrez la richesse culturelle et l'actualité du village de Thiarène</p>
+      </div>
     </div>
-  </div>
-  <a href="#actualites" class="scroll-down" aria-label="Aller aux actualités">
-    <i class="fas fa-chevron-down"></i>
-  </a>
-</section>
-<!-- Navigation -->
-<nav class="main-nav" aria-label="Navigation principale">
-  <div class="nav-container">
-    <a href="index.html" class="nav-logo">
-      <img src="logo192.png" alt="Logo Thiarene+">
-      <span>Thiarene+</span>
+    <a href="#actualites" class="scroll-down" aria-label="Aller aux actualités">
+      <i class="fas fa-chevron-down"></i>
     </a>
-    <button class="hamburger" id="hamburger" aria-label="Ouvrir le menu">
-      <i class="fas fa-bars"></i>
-    </button>
-    <ul class="nav-links">
-      <li><a href="#home">Accueil</a></li>
-      <li><a href="actualites.html">Actualités</a></li>
-      <li><a href="#histoire">Histoire</a></li>
-      <li><a href="#geographie">Géographie</a></li>
+  </section>
+
+  <!-- ================= NAVIGATION ================= -->
+  <nav class="main-nav" aria-label="Navigation principale">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="logo192.png" alt="Logo Thiarene+" width="40" height="40">
+        <span>Thiarene+</span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Ouvrir le menu">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="nav-links">
+        <li><a href="#home">Accueil</a></li>
+        <li><a href="actualites.html">Actualités</a></li>
+        <li><a href="#histoire">Histoire</a></li>
+        <li><a href="#geographie">Géographie</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ================= MENU LATERAL ================= -->
+  <aside class="side-menu" id="sideMenu" aria-label="Menu latéral">
+    <div class="side-menu-header">
+      <div class="side-menu-logo">Thiarene+</div>
+      <button class="close-menu" id="closeMenu" aria-label="Fermer le menu">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <ul class="side-menu-links">
+      <li><a href="#home"><i class="fas fa-home"></i> Accueil</a></li>
+      <li><a href="actualites.html"><i class="fas fa-newspaper"></i> Actualités</a></li>
+      <li><a href="#histoire"><i class="fas fa-landmark"></i> Histoire</a></li>
+      <li><a href="#geographie"><i class="fas fa-map-marked-alt"></i> Géographie</a></li>
     </ul>
+    <div class="side-menu-footer">
+      <div class="social-links">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ================= MAIN ================= -->
+  <main>
+    <!-- Section actualités -->
+    <section id="actualites" class="section">
+      <div class="container">
+        <div class="section-title" data-aos="fade-up">
+          <h2>Actualités du Village</h2>
+        </div>
+        <div class="filter-bar" data-aos="fade-up" data-aos-delay="100">
+          <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterNews('all', this)">
+              <i class="fas fa-list"></i> Tout voir
+            </button>
+            <button class="filter-btn" onclick="filterNews('histoire', this)">
+              <i class="fas fa-landmark"></i> Histoire
+            </button>
+            <button class="filter-btn" onclick="filterNews('population', this)">
+              <i class="fas fa-users"></i> Population
+            </button>
+            <button class="filter-btn" onclick="filterNews('chefferie', this)">
+              <i class="fas fa-crown"></i> Chefferie
+            </button>
+            <button class="filter-btn" onclick="filterNews('geographie', this)">
+              <i class="fas fa-map-marked-alt"></i> Géographie
+            </button>
+          </div>
+        </div>
+        <div class="news-grid">
+          <!-- Articles générés ici -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Section histoire -->
+    <section id="histoire" class="featured-section">
+      <div class="container">
+        <div class="featured-container">
+          <div class="featured-content" data-aos="fade-right">
+            <h2>L'histoire riche de Thiarène</h2>
+            <p>Découvrez les racines profondes de notre village à travers les récits des anciens et les archives historiques...</p>
+            <button class="read-more-btn" onclick="window.location.href='IMG-20250809-WA0004.jpg'">
+              <i class="fas fa-book"></i> Explorer l'histoire
+            </button>
+          </div>
+          <div class="featured-image" data-aos="fade-left">
+            <img src="IMG-20250809-WA0004.jpg" alt="Histoire de Thiarène" loading="lazy" width="500" height="300">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section stats -->
+    <section class="stats-section">
+      <div class="container">
+        <div class="section-title" data-aos="fade-up">
+          <h2>Thiarène en Chiffres</h2>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="stat-number" id="population-count">0</div>
+            <div class="stat-label">Habitants</div>
+          </div>
+          <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
+            <div class="stat-number" id="area-count">0</div>
+            <div class="stat-label">Km² de superficie</div>
+          </div>
+          <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
+            <div class="stat-number" id="chiefs-count">0</div>
+            <div class="stat-label">Chefs traditionnels</div>
+          </div>
+          <div class="stat-item" data-aos="fade-up" data-aos-delay="400">
+            <div class="stat-number" id="families-count">0</div>
+            <div class="stat-label">Familles fondatrices</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section géographie -->
+    <section id="geographie" class="section">
+      <div class="container">
+        <div class="section-title" data-aos="fade-up">
+          <h2>Géographie & Environnement</h2>
+        </div>
+        <div class="news-grid">
+          <!-- Articles géographiques -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter-section">
+      <div class="container">
+        <div class="newsletter-container" data-aos="fade-up">
+          <h2>Restez informés</h2>
+          <p>Abonnez-vous pour recevoir les dernières nouvelles directement dans votre boîte mail.</p>
+          <form class="newsletter-form">
+            <input type="email" class="newsletter-input" placeholder="Votre adresse email" required>
+            <button type="submit" class="newsletter-btn">S'abonner</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="container">
+      <div class="footer-container">
+        <div class="footer-about">
+          <a href="#" class="footer-logo">
+            <img src="logo192.png" alt="Logo Thiarene+" width="40" height="40">
+            <span>Thiarene+</span>
+          </a>
+          <p>Portail officiel du village de Thiarène, Sénégal. Actualités, histoire, culture et vie communautaire.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h3>Liens rapides</h3>
+          <ul>
+            <li><a href="#home"><i class="fas fa-chevron-right"></i> Accueil</a></li>
+            <li><a href="#actualites"><i class="fas fa-chevron-right"></i> Actualités</a></li>
+            <li><a href="#histoire"><i class="fas fa-chevron-right"></i> Histoire</a></li>
+            <li><a href="#geographie"><i class="fas fa-chevron-right"></i> Géographie</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h3>Contactez-nous</h3>
+          <p><i class="fas fa-envelope"></i> thuloyhigk@gmail.com</p>
+          <p><i class="fas fa-phone"></i> +221 75 451 3695</p>
+          <p><i class="fas fa-map-marker-alt"></i> Village de Thiarène, Matam, Sénégal</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Thiarene+. Tous droits réservés.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= BOUTON FLOTTANT ================= -->
+  <div class="fab" onclick="window.location.href='annonces.html'" aria-label="Ajouter une annonce">
+    <i class="fas fa-plus"></i>
   </div>
-</nav>
-<!-- Side Menu -->
-<aside class="side-menu" id="sideMenu" aria-label="Menu latéral">
-  <div class="side-menu-header">
-    <div class="side-menu-logo">Thiarene+</div>
-    <button class="close-menu" id="closeMenu" aria-label="Fermer le menu">
-      <i class="fas fa-times"></i>
-    </button>
-  </div>
-  <ul class="side-menu-links">
-    <li><a href="#home"><i class="fas fa-home"></i> Accueil</a></li>
-    <li><a href="actualites.html"><i class="fas fa-newspaper"></i> Actualités</a></li>
-    <li><a href="#histoire"><i class="fas fa-landmark"></i> Histoire</a></li>
-    <li><a href="#geographie"><i class="fas fa-map-marked-alt"></i> Géographie</a></li>
-  </ul>
-  <div class="side-menu-footer">
-    <div class="social-links">
-      <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-      <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-      <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-    </div>
-  </div>
-</aside>
-<!-- Main Content -->
-<main>
-  <!-- Actualités Section -->
-  <section id="actualites" class="section">
-    <div class="container">
-      <div class="section-title" data-aos="fade-up">
-        <h2>Actualités du Village</h2>
-      </div>
-      <div class="filter-bar" data-aos="fade-up" data-aos-delay="100">
-        <div class="filter-buttons">
-          <button class="filter-btn active" onclick="filterNews('all', this)">
-            <i class="fas fa-list"></i> Tout voir
-          </button>
-          <button class="filter-btn" onclick="filterNews('histoire', this)">
-            <i class="fas fa-landmark"></i> Histoire
-          </button>
-          <button class="filter-btn" onclick="filterNews('population', this)">
-            <i class="fas fa-users"></i> Population
-          </button>
-          <button class="filter-btn" onclick="filterNews('chefferie', this)">
-            <i class="fas fa-crown"></i> Chefferie
-          </button>
-          <button class="filter-btn" onclick="filterNews('geographie', this)">
-            <i class="fas fa-map-marked-alt"></i> Géographie
-          </button>
-        </div>
-      </div>
-      <div class="news-grid">
-        <!-- Articles dynamiquement générés ou statiques ici... -->
-      </div>
-    </div>
-  </section>
-  <!-- Featured Section -->
-  <section id="histoire" class="featured-section">
-    <div class="container">
-      <div class="featured-container">
-        <div class="featured-content" data-aos="fade-right">
-          <h2>L'histoire riche de Thiarène</h2>
-          <p>Découvrez les racines profondes de notre village à travers les récits des anciens et les archives historiques...</p>
-          <button class="read-more-btn" onclick="window.location.href='IMG-20250809-WA0004.jpg'">
-            <i class="fas fa-book"></i> Explorer l'histoire
-          </button>
-        </div>
-        <div class="featured-image" data-aos="fade-left">
-          <img src="IMG-20250809-WA0004.jpg" alt="Histoire de Thiarène" loading="lazy">
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- Stats Section -->
-  <section class="stats-section">
-    <div class="container">
-      <div class="section-title" data-aos="fade-up">
-        <h2>Thiarène en Chiffres</h2>
-      </div>
-      <div class="stats-grid">
-        <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
-          <div class="stat-number" id="population-count">0</div>
-          <div class="stat-label">Habitants</div>
-        </div>
-        <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
-          <div class="stat-number" id="area-count">0</div>
-          <div class="stat-label">Km² de superficie</div>
-        </div>
-        <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
-          <div class="stat-number" id="chiefs-count">0</div>
-          <div class="stat-label">Chefs traditionnels</div>
-        </div>
-        <div class="stat-item" data-aos="fade-up" data-aos-delay="400">
-          <div class="stat-number" id="families-count">0</div>
-          <div class="stat-label">Familles fondatrices</div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- Géographie Section -->
-  <section id="geographie" class="section">
-    <div class="container">
-      <div class="section-title" data-aos="fade-up">
-        <h2>Géographie & Environnement</h2>
-      </div>
-      <div class="news-grid">
-        <!-- Ajoute ici tes articles sur la géographie et la chefferie, en reprenant la structure précédente -->
-      </div>
-    </div>
-  </section>
-  <!-- Newsletter Section -->
-  <section class="newsletter-section">
-    <div class="container">
-      <div class="newsletter-container" data-aos="fade-up">
-        <h2>Restez informés</h2>
-        <p>Abonnez-vous à notre newsletter pour recevoir les dernières actualités du village directement dans votre boîte mail.</p>
-        <form class="newsletter-form">
-          <input type="email" class="newsletter-input" placeholder="Votre adresse email" required>
-          <button type="submit" class="newsletter-btn">S'abonner</button>
-        </form>
-      </div>
-    </div>
-  </section>
-</main>
-<!-- Footer -->
-<footer>
-  <div class="container">
-    <div class="footer-container">
-      <div class="footer-about">
-        <a href="#" class="footer-logo">
-          <img src="logo192.png" alt="Logo Thiarene+">
-          <span>Thiarene+</span>
-        </a>
-        <p>Portail officiel du village de Thiarène, Sénégal. Actualités, histoire, culture et vie communautaire.</p>
-        <div class="footer-social">
-          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-        </div>
-      </div>
-      <div class="footer-links">
-        <h3>Liens rapides</h3>
-        <ul>
-          <li><a href="#home"><i class="fas fa-chevron-right"></i> Accueil</a></li>
-          <li><a href="#actualites"><i class="fas fa-chevron-right"></i> Actualités</a></li>
-          <li><a href="#histoire"><i class="fas fa-chevron-right"></i> Histoire</a></li>
-          <li><a href="#geographie"><i class="fas fa-chevron-right"></i> Géographie</a></li>
-        </ul>
-      </div>
-      <div class="footer-contact">
-        <h3>Contactez-nous</h3>
-        <p><i class="fas fa-envelope"></i> thuloyhigk@gmail.com</p>
-        <p><i class="fas fa-phone"></i> +221 75 451 3695</p>
-        <p><i class="fas fa-map-marker-alt"></i> Village de Thiarène, Matam, Sénégal</p>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2025 Thiarene+. Tous droits réservés.</p>
-    </div>
-  </div>
-</footer>
-<!-- Floating Action Button -->
-<div class="fab" onclick="window.location.href='annonces.html'" aria-label="Ajouter une annonce">
-  <i class="fas fa-plus"></i>
-</div>
-<!-- Scripts -->
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script src="js/main.js"></script>
-<script src="js/firebase.js" type="module"></script>
-<script>
-  // Initialize AOS (Animate On Scroll)
-  AOS.init({ duration: 800, easing: 'ease-in-out', once: true });
-  // Side Menu Toggle
-  const hamburger = document.getElementById('hamburger');
-  const closeMenu = document.getElementById('closeMenu');
-  const sideMenu = document.getElementById('sideMenu');
-  if (hamburger && sideMenu) {
-    hamburger.addEventListener('click', () => sideMenu.classList.add('open'));
-  }
-  if (closeMenu && sideMenu) {
-    closeMenu.addEventListener('click', () => sideMenu.classList.remove('open'));
-  }
-  // Filter News Function
-  function filterNews(category, button) {
-    const cards = document.querySelectorAll('.news-card');
-    const buttons = document.querySelectorAll('.filter-btn');
-    buttons.forEach(btn => btn.classList.remove('active'));
-    if (button) button.classList.add('active');
-    cards.forEach(card => {
-      const cardCategory = card.getAttribute('data-category');
-      card.style.display = (category === 'all' || cardCategory === category) ? 'block' : 'none';
-      if (card.style.display === 'block') card.setAttribute('data-aos', 'fade-up');
-    });
-    AOS.refresh();
-  }
-  // Toggle Read More Function
-  function toggleReadMore(button) {
-    const newsContent = button.closest('.news-content');
-    if (!newsContent) return;
-    const newsText = newsContent.querySelector('.news-text');
-    if (!newsText) return;
-    newsText.classList.toggle('expanded');
-    button.innerHTML = newsText.classList.contains('expanded')
-      ? '<i class="fas fa-book-open"></i> Lire moins'
-      : '<i class="fas fa-book-open"></i> Lire plus';
-  }
-  // Toggle Like Function
-  function toggleLike(button) {
-    const icon = button.querySelector('i');
-    const count = button.querySelector('.like-count');
-    if (button.classList.contains('liked')) {
-      button.classList.remove('liked');
-      icon.classList.replace('fas', 'far');
-      count.textContent = parseInt(count.textContent) - 1;
-    } else {
-      button.classList.add('liked');
-      icon.classList.replace('far', 'fas');
-      count.textContent = parseInt(count.textContent) + 1;
-      icon.classList.add('animate__animated', 'animate__heartBeat');
-      setTimeout(() => icon.classList.remove('animate__animated', 'animate__heartBeat'), 1000);
-    }
-  }
-  // Animated Counter for Stats
-  function animateCounters() {
-    const counters = document.querySelectorAll('.stat-number');
-    const speed = 200;
-    let stillCounting = false;
-    counters.forEach(counter => {
-      const target = parseInt(counter.getAttribute('data-target') || (counter.id === 'population-count' ? 4627 : counter.id === 'area-count' ? 15 : counter.id === 'chiefs-count' ? 17 : 2));
-      let count = +counter.innerText;
-      if (count < target) {
-        counter.innerText = Math.min(target, Math.ceil(count + target / speed));
-        stillCounting = true;
-      } else {
-        counter.innerText = target;
-      }
-    });
-    if (stillCounting) setTimeout(animateCounters, 20);
-  }
-  // Run counters when stats section is in view
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        animateCounters();
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.5 });
-  const statsSection = document.querySelector('.stats-section');
-  if (statsSection) observer.observe(statsSection);
-  // Sticky Navigation
-  window.addEventListener('scroll', () => {
-    const nav = document.querySelector('.main-nav');
-    if (!nav) return;
-    if (window.scrollY > 100) {
-      nav.classList.add('scrolled');
-    } else {
-      nav.classList.remove('scrolled');
-    }
-  });
-  // Smooth Scrolling for Anchor Links
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      e.preventDefault();
-      const targetId = this.getAttribute('href');
-      if (targetId === '#') return;
-      const targetElement = document.querySelector(targetId);
-      if (targetElement) {
-        window.scrollTo({
-          top: targetElement.offsetTop - 80,
-          behavior: 'smooth'
-        });
-        if (sideMenu) sideMenu.classList.remove('open');
-      }
-    });
-  });
-  // Check for new content since last visit
-  document.addEventListener('DOMContentLoaded', () => {
-    const lastVisit = localStorage.getItem('lastVisit');
-    const now = new Date().toISOString();
-    let hasNewContent = false;
-    document.querySelectorAll('.news-card').forEach(card => {
-      const date = card.getAttribute('data-news-date');
-      if (!lastVisit || (date && date > lastVisit)) {
-        hasNewContent = true;
-        card.classList.add('new-content');
-      }
-    });
-    if (hasNewContent) {
-      const alert = document.createElement('div');
-      alert.className = 'news-alert animate__animated animate__pulse';
-      alert.innerHTML = '🆕 Nouveau contenu disponible depuis votre dernière visite !';
-      const filterBar = document.querySelector('.filter-bar');
-      if (filterBar) filterBar.after(alert);
-    }
-    localStorage.setItem('lastVisit', now);
-  });
-</script>
-<!-- Firebase Scripts -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-  import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-messaging.js";
-  const firebaseConfig = {
-    apiKey: "AIzaSyAfaaMyk4_CjF9SwJ4D0o-r0A5jENFJxOc",
-    authDomain: "blossomverse-lgajk.firebaseapp.com",
-    projectId: "blossomverse-lgajk",
-    storageBucket: "blossomverse-lgajk.appspot.com",
-    messagingSenderId: "588813220309",
-    appId: "1:588813220309:web:ea1934d655e1d2397ce55c"
-  };
-  const app = initializeApp(firebaseConfig);
-  const messaging = getMessaging(app);
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('firebase-messaging-sw.js')
-      .then((registration) => {
-        console.log('Service worker enregistré ✅');
-        return getToken(messaging, {
-          vapidKey: "BLOAjTgMrPXBk5gaC6Fx-nKBkhFMYiOrXRpnxh7c3o9W139lNrw_hMyhb5Uca5WGjrYxgiGvIrBPOcB8EHrszwY",
-          serviceWorkerRegistration: registration
-        });
-      })
-      .then((token) => {
-        console.log("Token Firebase utilisateur 🔑", token);
-      })
-      .catch((err) => {
-        console.log("Erreur de permission ou token ❌", err);
-      });
-  }
-  onMessage(messaging, (payload) => {
-    alert("🔔 Nouvelle annonce : " + payload.notification.title);
-  });
-</script>
+
+  <!-- ================= SCRIPTS ================= -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/firebase.js" type="module"></script>
 </body>
-</html>
+      </html>
