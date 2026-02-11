@@ -13,6 +13,8 @@
   <link rel="icon" href="logo192.png" type="image/png">
 
   <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
 
   <!-- Font Awesome -->
@@ -30,7 +32,7 @@
   </div>
 
   <!-- ================= NAVIGATION ================= -->
-  <nav class="main-nav scrolled">
+  <nav class="main-nav scrolled" aria-label="Navigation principale">
     <div class="nav-container">
       <a href="index.html" class="nav-logo">
         <img src="logo192.png" alt="Logo Thiarene+" width="40" height="40">
@@ -40,28 +42,40 @@
         <i class="fas fa-bars"></i>
       </button>
       <ul class="nav-links">
-        <li><a href="index.html">Accueil</a></li>
+        <li><a href="index.html#home">Accueil</a></li>
         <li><a href="actualites.html" class="active">Actualités</a></li>
+        <li><a href="index.html#histoire">Histoire</a></li>
+        <li><a href="index.html#geographie">Géographie</a></li>
       </ul>
     </div>
   </nav>
 
   <!-- ================= MENU LATERAL ================= -->
-  <aside class="side-menu" id="sideMenu">
+  <aside class="side-menu" id="sideMenu" aria-label="Menu latéral">
     <div class="side-menu-header">
       <div class="side-menu-logo">Thiarene+</div>
-      <button class="close-menu" id="closeMenu">
+      <button class="close-menu" id="closeMenu" aria-label="Fermer le menu">
         <i class="fas fa-times"></i>
       </button>
     </div>
     <ul class="side-menu-links">
-      <li><a href="index.html"><i class="fas fa-home"></i> Accueil</a></li>
+      <li><a href="index.html#home"><i class="fas fa-home"></i> Accueil</a></li>
       <li><a href="actualites.html" class="active"><i class="fas fa-newspaper"></i> Actualités</a></li>
+      <li><a href="index.html#histoire"><i class="fas fa-landmark"></i> Histoire</a></li>
+      <li><a href="index.html#geographie"><i class="fas fa-map-marked-alt"></i> Géographie</a></li>
     </ul>
+    <div class="side-menu-footer">
+      <div class="social-links">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
   </aside>
 
-  <main class="container" style="margin-top: 120px; padding-bottom: 60px;">
-    <article class="news-article glass-card" data-aos="fade-up">
+  <main class="container">
+    <article class="news-article" data-aos="fade-up">
       <header class="article-header">
         <span class="news-category">Géographie</span>
         <h1>Où se situe le village de Thiaréne ?</h1>
@@ -69,16 +83,16 @@
       </header>
 
       <div class="article-image">
-        <img src="carte_thiarene.jpg" alt="Carte de Thiaréne" style="border-radius: 15px; width: 100%; max-height: 500px; object-fit: cover;">
+        <img src="carte_thiarene.jpg" alt="Carte de Thiaréne">
       </div>
 
-      <div class="article-content" style="margin-top: 30px; font-size: 1.1rem; line-height: 1.8;">
+      <div class="article-content">
         <p>Le village de <strong>Thiaréne</strong> est situé au nord-est du Sénégal, dans la <strong>région de Matam</strong>, à proximité immédiate des villages <strong>Sedo Sébé</strong> et <strong>Wouro Aly Boubou</strong>.</p>
         <p>📍 <strong>Coordonnées GPS</strong> : Latitude : 15.7616368, Longitude : -13.4732566</p>
         <p>Il se trouve dans le <strong>Fouta Toro</strong>, une zone historique et culturelle majeure, bordée par le fleuve Sénégal.</p>
 
-        <div class="map-link" style="margin-top: 40px; text-align: center;">
-          <a href="https://www.google.com/maps?q=15.7616368,-13.4732566" target="_blank" class="btn-primary" style="display: inline-block; padding: 15px 30px; border-radius: 30px; background: var(--accent-color); color: var(--primary-color); font-weight: bold; text-decoration: none;">
+        <div class="map-link">
+          <a href="https://www.google.com/maps?q=15.7616368,-13.4732566" target="_blank" class="btn-primary">
             <i class="fas fa-map-marker-alt"></i> Voir sur Google Maps
           </a>
         </div>
@@ -88,7 +102,9 @@
 
   <footer>
     <div class="container">
-      <p>&copy; 2025 Thiarene+. Tous droits réservés.</p>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Thiarene+. Tous droits réservés.</p>
+      </div>
     </div>
   </footer>
 

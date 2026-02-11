@@ -468,6 +468,11 @@ footer {
   margin-bottom: 1.5rem;
 }
 
+.map-link {
+  margin-top: 3rem;
+  text-align: center;
+}
+
 .btn-primary {
   display: inline-block;
   background: var(--secondary);
