@@ -3,30 +3,98 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Où se situe le village de Thiaréne ?</title>
-  <link rel="stylesheet" href="../css/style.css">
+  <title>Où se situe le village de Thiaréne ? | Thiarene+</title>
   <meta name="description" content="Découvrez où se situe le village de Thiaréne dans la région de Matam au Sénégal.">
-</head>
-<body>
-  <header>
-    <nav>
-      <a href="../index.html">Accueil</a>
-      <a href="../actualites.html">Actualités</a>
-    </nav>
-  </header>
 
-  <main class="container">
-    <h1>Où se situe le village de Thiaréne ?</h1>
-    <p class="date-publication">Publié le 14 août 2025</p>
-    <img src="../images/carte_thiarene.jpg" alt="Carte de Thiaréne">
-    <p>Le village de <strong>Thiaréne</strong> est situé au nord-est du Sénégal, dans la <strong>région de Matam</strong>, à proximité immédiate des villages <strong>Sedo Sébé</strong> et <strong>Wouro Aly Boubou</strong>.</p>
-    <p>📍 <strong>Coordonnées GPS</strong> : Latitude : 15.7616368, Longitude : -13.4732566</p>
-    <p>Il se trouve dans le <strong>Fouta Toro</strong>, une zone historique et culturelle majeure, bordée par le fleuve Sénégal.</p>
-    <p><a href="https://www.google.com/maps?q=15.7616368,-13.4732566" target="_blank">Voir sur Google Maps</a></p>
+  <!-- CSS principal -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Favicon -->
+  <link rel="icon" href="logo192.png" type="image/png">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Librairies d’animation -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body class="article-page">
+
+  <!-- ================= PRELOADER ================= -->
+  <div id="preloader">
+    <div class="loader"></div>
+  </div>
+
+  <!-- ================= NAVIGATION ================= -->
+  <nav class="main-nav scrolled">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="logo192.png" alt="Logo Thiarene+" width="40" height="40">
+        <span>Thiarene+</span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Ouvrir le menu">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="nav-links">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="actualites.html" class="active">Actualités</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ================= MENU LATERAL ================= -->
+  <aside class="side-menu" id="sideMenu">
+    <div class="side-menu-header">
+      <div class="side-menu-logo">Thiarene+</div>
+      <button class="close-menu" id="closeMenu">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <ul class="side-menu-links">
+      <li><a href="index.html"><i class="fas fa-home"></i> Accueil</a></li>
+      <li><a href="actualites.html" class="active"><i class="fas fa-newspaper"></i> Actualités</a></li>
+    </ul>
+  </aside>
+
+  <main class="container" style="margin-top: 120px; padding-bottom: 60px;">
+    <article class="news-article glass-card" data-aos="fade-up">
+      <header class="article-header">
+        <span class="news-category">Géographie</span>
+        <h1>Où se situe le village de Thiaréne ?</h1>
+        <p class="date-publication"><i class="far fa-calendar-alt"></i> Publié le 14 août 2025</p>
+      </header>
+
+      <div class="article-image">
+        <img src="carte_thiarene.jpg" alt="Carte de Thiaréne" style="border-radius: 15px; width: 100%; max-height: 500px; object-fit: cover;">
+      </div>
+
+      <div class="article-content" style="margin-top: 30px; font-size: 1.1rem; line-height: 1.8;">
+        <p>Le village de <strong>Thiaréne</strong> est situé au nord-est du Sénégal, dans la <strong>région de Matam</strong>, à proximité immédiate des villages <strong>Sedo Sébé</strong> et <strong>Wouro Aly Boubou</strong>.</p>
+        <p>📍 <strong>Coordonnées GPS</strong> : Latitude : 15.7616368, Longitude : -13.4732566</p>
+        <p>Il se trouve dans le <strong>Fouta Toro</strong>, une zone historique et culturelle majeure, bordée par le fleuve Sénégal.</p>
+
+        <div class="map-link" style="margin-top: 40px; text-align: center;">
+          <a href="https://www.google.com/maps?q=15.7616368,-13.4732566" target="_blank" class="btn-primary" style="display: inline-block; padding: 15px 30px; border-radius: 30px; background: var(--accent-color); color: var(--primary-color); font-weight: bold; text-decoration: none;">
+            <i class="fas fa-map-marker-alt"></i> Voir sur Google Maps
+          </a>
+        </div>
+      </div>
+    </article>
   </main>
 
   <footer>
-    <p>&copy; 2025 Thiarene+</p>
+    <div class="container">
+      <p>&copy; 2025 Thiarene+. Tous droits réservés.</p>
+    </div>
   </footer>
+
+  <!-- ================= SCRIPTS ================= -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/firebase.js" type="module"></script>
 </body>
 </html>
