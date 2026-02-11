@@ -1,20 +1,11 @@
 [build]
-  publish = "build"  # ou le dossier où se trouve ton site (par exemple "dist" ou "_site")
-  command = "npm run build" # adapte selon ton workflow (ou supprime si tu déploies statique direct)
+  publish = "."
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-  conditions = { Role = "" } # redirection uniquement pour utilisateurs non-admin (optionnel)
 
-# Autre option sans condition (redirection SPA pure)
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
-# Headers de sécurité recommandés (optionnel)
 [[headers]]
   for = "/*"
   [headers.values]
@@ -25,7 +16,6 @@
     Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
     Cache-Control = "public, max-age=0, must-revalidate"
 
-# Headers spécifiques pour les fichiers statiques
 [[headers]]
   for = "/static/*"
   [headers.values]
